@@ -148,7 +148,7 @@ export const ratesSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_rate_create",
       description:
-        "⚠ HIGH-IMPACT [admin] Create a custom reimbursement rate (affects reimbursement amounts). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Create a custom reimbursement rate (affects reimbursement amounts). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Rate Create",
         readOnlyHint: false,
@@ -211,7 +211,7 @@ export const ratesSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_rate_delete",
       description:
-        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a custom reimbursement rate (affects reimbursement amounts). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a custom reimbursement rate (affects reimbursement amounts). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Rate Delete",
         readOnlyHint: false,
@@ -239,7 +239,7 @@ export const ratesSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_rate_update",
       description:
-        "⚠ HIGH-IMPACT [admin] Update a custom reimbursement rate (affects reimbursement amounts). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Update a custom reimbursement rate (affects reimbursement amounts). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Rate Update",
         readOnlyHint: false,

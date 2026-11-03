@@ -164,7 +164,7 @@ export const teamReportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_report_approve",
       description:
-        "⚠ HIGH-IMPACT [admin] Approve a submitted team report (approves reimbursement). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Approve a submitted team report (approves reimbursement). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Report Approve",
         readOnlyHint: false,
@@ -200,7 +200,7 @@ export const teamReportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_report_bulk_approve",
       description:
-        "⚠ HIGH-IMPACT [admin] Approve several submitted team reports (approves reimbursement). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Approve several submitted team reports (approves reimbursement). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Report Bulk Approve",
         readOnlyHint: false,
@@ -242,7 +242,7 @@ export const teamReportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_report_bulk_process",
       description:
-        "⚠ HIGH-IMPACT [admin] Mark several approved team reports as processed/paid. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Mark several approved team reports as processed/paid. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Report Bulk Process",
         readOnlyHint: false,
@@ -284,7 +284,7 @@ export const teamReportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_report_bulk_reject",
       description:
-        "⚠ HIGH-IMPACT [admin] Reject several submitted team reports. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Reject several submitted team reports. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Report Bulk Reject",
         readOnlyHint: false,
@@ -326,7 +326,7 @@ export const teamReportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_report_process",
       description:
-        "⚠ HIGH-IMPACT [admin] Mark an approved team report as processed/paid. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Mark an approved team report as processed/paid. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Report Process",
         readOnlyHint: false,
@@ -362,7 +362,7 @@ export const teamReportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_report_reject",
       description:
-        "⚠ HIGH-IMPACT [admin] Reject a submitted team report. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Reject a submitted team report. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Report Reject",
         readOnlyHint: false,
@@ -398,7 +398,7 @@ export const teamReportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_report_submit",
       description:
-        "⚠ HIGH-IMPACT [admin] Submit a report to a team reviewer for reimbursement. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Submit a report to a team reviewer for reimbursement. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Report Submit",
         readOnlyHint: false,
@@ -441,7 +441,7 @@ export const teamReportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_report_withdraw",
       description:
-        "⚠ HIGH-IMPACT [admin] Withdraw a submitted team report. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Withdraw a submitted team report. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Report Withdraw",
         readOnlyHint: false,

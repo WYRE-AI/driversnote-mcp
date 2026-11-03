@@ -152,7 +152,7 @@ export const odometerSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_odometer_reading_delete",
       description:
-        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete an odometer reading. Readings feed reimbursement odometer checks. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete an odometer reading. Readings feed reimbursement odometer checks. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Odometer Reading Delete",
         readOnlyHint: false,

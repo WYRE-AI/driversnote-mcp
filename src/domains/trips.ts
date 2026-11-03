@@ -95,7 +95,7 @@ export const tripsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_trip_bulk_delete",
       description:
-        "⚠ HIGH-IMPACT [admin] Soft-delete several trips by id. Reversible with driversnote_trip_bulk_restore. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Soft-delete several trips by id. Reversible with driversnote_trip_bulk_restore. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Trip Bulk Delete",
         readOnlyHint: false,
@@ -354,7 +354,7 @@ export const tripsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_trip_delete",
       description:
-        "⚠ HIGH-IMPACT [admin] Soft-delete a trip. Reversible with driversnote_trip_restore. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Soft-delete a trip. Reversible with driversnote_trip_restore. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Trip Delete",
         readOnlyHint: false,

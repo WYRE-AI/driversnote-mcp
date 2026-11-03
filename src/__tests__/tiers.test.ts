@@ -19,6 +19,16 @@ describe("tier map", () => {
     expect(Object.keys(TOOL_TIERS)).toHaveLength(96);
   });
 
+  it("has no pending approvals and preserves reasons for all 33 admin tools", () => {
+    const admins = Object.values(TOOL_TIERS).filter((info) => info.tier === "admin");
+    expect(admins).toHaveLength(33);
+    for (const info of Object.values(TOOL_TIERS)) {
+      expect(info.pendingAaron).toBe(false);
+      expect(info.note).not.toContain("PENDING AARON");
+    }
+    for (const info of admins) expect(info.note.trim().length).toBeGreaterThan(0);
+  });
+
   it("matches schema/tiers.json exactly (tier, pendingAaron, note)", () => {
     for (const [tool, info] of Object.entries(TOOL_TIERS)) {
       const src = tiersJson[info.operation];
@@ -85,7 +95,7 @@ describe("descriptions and annotations carry the tier", () => {
         expect(a.destructiveHint).toBe(true);
         expect(desc).toMatch(/⚠ (DESTRUCTIVE|HIGH-IMPACT)/);
       }
-      expect(desc.includes("Pending tier sign-off.")).toBe(info.pendingAaron);
+      expect(desc).not.toContain("Pending tier sign-off.");
       expect(a.openWorldHint).toBe(true);
       expect(typeof a.idempotentHint).toBe("boolean");
     });

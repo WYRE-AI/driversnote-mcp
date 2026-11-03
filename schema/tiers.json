@@ -248,8 +248,8 @@
  "locationDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Irreversible: no locationRestore mutation."
+  "pendingAaron": false,
+  "note": "Irreversible: no locationRestore mutation."
  },
  "locationImport": {
   "kind": "mutation",
@@ -272,8 +272,8 @@
  "odometerReadingDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Irreversible: no restore mutation; odometer readings feed report totals."
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation; odometer readings feed report totals."
  },
  "odometerReadingUpdate": {
   "kind": "mutation",
@@ -284,7 +284,7 @@
  "organisationArchive": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
+  "pendingAaron": false,
   "note": "Org archive is admin per the brief (reversible via organisationUnarchive)."
  },
  "organisationCreate": {
@@ -296,8 +296,8 @@
  "organisationDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Irreversible: no restore mutation."
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation."
  },
  "organisationUnarchive": {
   "kind": "mutation",
@@ -308,26 +308,26 @@
  "organisationUpdate": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: can change the workplace reimbursement method, which drives reimbursement amounts."
+  "pendingAaron": false,
+  "note": "can change the workplace reimbursement method, which drives reimbursement amounts."
  },
  "rateCreate": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: reimbursement rates (money)."
+  "pendingAaron": false,
+  "note": "reimbursement rates (money)."
  },
  "rateDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: reimbursement rates (money); irreversible."
+  "pendingAaron": false,
+  "note": "reimbursement rates (money); irreversible."
  },
  "rateUpdate": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: reimbursement rates (money)."
+  "pendingAaron": false,
+  "note": "reimbursement rates (money)."
  },
  "reportCreate": {
   "kind": "mutation",
@@ -338,8 +338,8 @@
  "reportDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Irreversible: no restore mutation; reimbursement document."
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation; reimbursement document."
  },
  "reportReplace": {
   "kind": "mutation",
@@ -356,8 +356,8 @@
  "reportingSettingUpdate": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: changes reporting periods used for reimbursement."
+  "pendingAaron": false,
+  "note": "changes reporting periods used for reimbursement."
  },
  "tagCategoryCreate": {
   "kind": "mutation",
@@ -368,8 +368,8 @@
  "tagCategoryDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Irreversible: no restore mutation."
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation."
  },
  "tagCategoryUpdate": {
   "kind": "mutation",
@@ -386,8 +386,8 @@
  "tagDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Irreversible: no restore mutation."
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation."
  },
  "tagUpdate": {
   "kind": "mutation",
@@ -398,116 +398,116 @@
  "teamCreate": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Account/access change: creates a team the caller administers."
+  "pendingAaron": false,
+  "note": "Account/access change: creates a team the caller administers."
  },
  "teamDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Irreversible; removes team access."
+  "pendingAaron": false,
+  "note": "Irreversible; removes team access."
  },
  "teamInvite": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Access change; sends an invitation email."
+  "pendingAaron": false,
+  "note": "Access change; sends an invitation email."
  },
  "teamInviteDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Access change."
+  "pendingAaron": false,
+  "note": "Access change."
  },
  "teamInviteResend": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Access change; sends an invitation email."
+  "pendingAaron": false,
+  "note": "Access change; sends an invitation email."
  },
  "teamMemberBulkUpsert": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Access change."
+  "pendingAaron": false,
+  "note": "Access change."
  },
  "teamMemberDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Access change."
+  "pendingAaron": false,
+  "note": "Access change."
  },
  "teamMemberUpdateRole": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Access change."
+  "pendingAaron": false,
+  "note": "Access change."
  },
  "teamMemberUpsert": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Access change."
+  "pendingAaron": false,
+  "note": "Access change."
  },
  "teamReportApprove": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: approves reimbursement."
+  "pendingAaron": false,
+  "note": "approves reimbursement."
  },
  "teamReportBulkApprove": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: approves reimbursement."
+  "pendingAaron": false,
+  "note": "approves reimbursement."
  },
  "teamReportBulkProcess": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: marks reimbursement processed/paid."
+  "pendingAaron": false,
+  "note": "marks reimbursement processed/paid."
  },
  "teamReportBulkReject": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: rejects reimbursement."
+  "pendingAaron": false,
+  "note": "rejects reimbursement."
  },
  "teamReportProcess": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: marks reimbursement processed/paid."
+  "pendingAaron": false,
+  "note": "marks reimbursement processed/paid."
  },
  "teamReportReject": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: rejects reimbursement."
+  "pendingAaron": false,
+  "note": "rejects reimbursement."
  },
  "teamReportSubmit": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: submits a report to a manager for reimbursement (notifies reviewer)."
+  "pendingAaron": false,
+  "note": "submits a report to a manager for reimbursement (notifies reviewer)."
  },
  "teamReportWithdraw": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: withdraws a reimbursement submission."
+  "pendingAaron": false,
+  "note": "withdraws a reimbursement submission."
  },
  "teamUpdate": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Team settings (access/account)."
+  "pendingAaron": false,
+  "note": "Team settings (access/account)."
  },
  "tripBulkDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: bulk trip delete. Soft delete (tripBulkRestore exists)."
+  "pendingAaron": false,
+  "note": "bulk trip delete. Soft delete (tripBulkRestore exists)."
  },
  "tripBulkRestore": {
   "kind": "mutation",
@@ -530,8 +530,8 @@
  "tripDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: trip delete. Soft delete (tripRestore exists), but Aaron flagged trip deletion as an admin candidate."
+  "pendingAaron": false,
+  "note": "trip delete. Soft delete (tripRestore exists), but Aaron flagged trip deletion as an admin candidate."
  },
  "tripRestore": {
   "kind": "mutation",
@@ -560,8 +560,8 @@
  "vehicleDelete": {
   "kind": "mutation",
   "tier": "admin",
-  "pendingAaron": true,
-  "note": "PENDING AARON: Irreversible: no restore mutation."
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation."
  },
  "vehicleUnarchive": {
   "kind": "mutation",

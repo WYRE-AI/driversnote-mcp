@@ -240,7 +240,7 @@ export const reportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_report_delete",
       description:
-        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a report. Reimbursement documents are removed. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a report. Reimbursement documents are removed. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Report Delete",
         readOnlyHint: false,

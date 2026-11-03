@@ -96,7 +96,7 @@ export const organisationsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_organisation_archive",
       description:
-        "⚠ HIGH-IMPACT [admin] Archive a workplace (API name: organisation). Reversible with driversnote_organisation_unarchive. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Archive a workplace (API name: organisation). Reversible with driversnote_organisation_unarchive. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Organisation Archive",
         readOnlyHint: false,
@@ -166,7 +166,7 @@ export const organisationsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_organisation_delete",
       description:
-        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a workplace (API name: organisation). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a workplace (API name: organisation). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Organisation Delete",
         readOnlyHint: false,
@@ -222,7 +222,7 @@ export const organisationsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_organisation_update",
       description:
-        "⚠ HIGH-IMPACT [admin] Update a workplace (API name: organisation). Can change the reimbursement method used to calculate reimbursements. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Update a workplace (API name: organisation). Can change the reimbursement method used to calculate reimbursements. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Organisation Update",
         readOnlyHint: false,
@@ -267,7 +267,7 @@ export const organisationsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_reporting_setting_update",
       description:
-        "⚠ HIGH-IMPACT [admin] Update a workplace's reporting settings: period interval, deadlines, trip issue rules, masking. Takes the reporting setting id (see reportingSetting.id in driversnote_organisation_get). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Update a workplace's reporting settings: period interval, deadlines, trip issue rules, masking. Takes the reporting setting id (see reportingSetting.id in driversnote_organisation_get). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Reporting Setting Update",
         readOnlyHint: false,

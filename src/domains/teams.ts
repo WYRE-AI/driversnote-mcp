@@ -78,7 +78,7 @@ export const teamsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_create",
       description:
-        "⚠ HIGH-IMPACT [admin] Create a team (the caller becomes its administrator). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Create a team (the caller becomes its administrator). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Create",
         readOnlyHint: false,
@@ -123,7 +123,7 @@ export const teamsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_delete",
       description:
-        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a team. Removes team access for all members. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a team. Removes team access for all members. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Delete",
         readOnlyHint: false,
@@ -155,7 +155,7 @@ export const teamsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_invite",
       description:
-        "⚠ HIGH-IMPACT [admin] Invite a person to a team by email (sends an invitation email). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Invite a person to a team by email (sends an invitation email). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Invite",
         readOnlyHint: false,
@@ -206,7 +206,7 @@ export const teamsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_invite_delete",
       description:
-        "⚠ HIGH-IMPACT [admin] Delete a pending team invitation. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Delete a pending team invitation. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Invite Delete",
         readOnlyHint: false,
@@ -231,7 +231,7 @@ export const teamsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_invite_resend",
       description:
-        "⚠ HIGH-IMPACT [admin] Resend a pending team invitation email. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Resend a pending team invitation email. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Invite Resend",
         readOnlyHint: false,
@@ -256,7 +256,7 @@ export const teamsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_member_bulk_upsert",
       description:
-        "⚠ HIGH-IMPACT [admin] Create or update several team memberships for one user (changes access). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Create or update several team memberships for one user (changes access). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Member Bulk Upsert",
         readOnlyHint: false,
@@ -307,7 +307,7 @@ export const teamsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_member_delete",
       description:
-        "⚠ HIGH-IMPACT [admin] Remove a team member (soft delete; changes access). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Remove a team member (soft delete; changes access). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Member Delete",
         readOnlyHint: false,
@@ -335,7 +335,7 @@ export const teamsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_member_update_role",
       description:
-        "⚠ HIGH-IMPACT [admin] Change a team member's role (admin, manager, member). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Change a team member's role (admin, manager, member). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Member Update Role",
         readOnlyHint: false,
@@ -367,7 +367,7 @@ export const teamsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_member_upsert",
       description:
-        "⚠ HIGH-IMPACT [admin] Create or update a team membership for a user (set deleted=true to remove). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Create or update a team membership for a user (set deleted=true to remove). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Member Upsert",
         readOnlyHint: false,
@@ -415,7 +415,7 @@ export const teamsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_team_update",
       description:
-        "⚠ HIGH-IMPACT [admin] Rename a team. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "⚠ HIGH-IMPACT [admin] Rename a team. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Team Update",
         readOnlyHint: false,

@@ -40,6 +40,9 @@ describe("parseEnabledTiers", () => {
 describe("tool listing by tier", () => {
   it("lists only read tools by default", () => {
     const tools = listEnabledTools();
+    expect(process.env.DRIVERSNOTE_TOOL_TIERS).toBeUndefined();
+    expect(tools.filter((t) => TOOL_TIERS[t.name].tier === "admin")).toHaveLength(0);
+    expect(tools.filter((t) => TOOL_TIERS[t.name].tier === "write")).toHaveLength(0);
     expect(tools).toHaveLength(37);
     expect(tools.every((t) => TOOL_TIERS[t.name].tier === "read")).toBe(true);
     expect(tools.every((t) => t.annotations?.readOnlyHint === true)).toBe(true);
@@ -58,7 +61,9 @@ describe("tool listing by tier", () => {
   });
   it("read,write,admin lists all 96", () => {
     process.env.DRIVERSNOTE_TOOL_TIERS = "read,write,admin";
-    expect(listEnabledTools()).toHaveLength(96);
+    const tools = listEnabledTools();
+    expect(tools).toHaveLength(96);
+    expect(tools.filter((t) => TOOL_TIERS[t.name].tier === "admin")).toHaveLength(33);
   });
 });
 
