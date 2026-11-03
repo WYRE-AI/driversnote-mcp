@@ -49,7 +49,7 @@ describe("resolveGatewayCredentials", () => {
   });
 
   it("AUTH_MODE=gateway makes getCredentials ignore the env key", () => {
-    process.env.AUTH_MODE = "gateway";
+    process.env.AUTH_MODE = "  gateway  ";
     expect(getCredentials()).toBeNull();
     process.env.AUTH_MODE = "env";
     expect(getCredentials()).toEqual({ apiKey: "env-key-must-not-be-used" });

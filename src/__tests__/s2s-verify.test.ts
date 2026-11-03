@@ -46,6 +46,11 @@ describe("verifyS2sHeader", () => {
     const now = Math.floor(Date.now() / 1000);
     expect(verifyS2sHeader(mintHeader(ownSubkey, now), "")).toBe(false);
   });
+  it("rejects a correctly signed header with a secret shorter than 32 characters", () => {
+    const now = Math.floor(Date.now() / 1000);
+    expect(verifyS2sHeader(mintHeader("x".repeat(31), now), "x".repeat(31))).toBe(false);
+    expect(verifyS2sHeader(mintHeader("x".repeat(32), now), "x".repeat(32))).toBe(true);
+  });
   it("rejects a tampered signature", () => {
     const now = Math.floor(Date.now() / 1000);
     const header = mintHeader(ownSubkey, now);

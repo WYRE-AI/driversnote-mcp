@@ -31,7 +31,7 @@ export function verifyS2sHeader(
   secret: string,
   maxSkewSeconds = 300
 ): boolean {
-  if (!secret || !headerValue) return false;
+  if (secret.trim().length < 32 || !headerValue) return false;
   const match = HEADER_VALUE_RE.exec(headerValue);
   if (!match) return false;
   const t = Number(match[1]);

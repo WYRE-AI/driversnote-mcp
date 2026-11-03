@@ -102,6 +102,9 @@ function resolveS2sSecret(env: NodeJS.ProcessEnv = process.env): { secret: strin
   if (raw && KNOWN_PLACEHOLDER_SECRETS.has(raw.toLowerCase())) {
     refuseStart(PLACEHOLDER_S2S_SECRET_ERROR);
   }
+  if (raw && raw.length < 32) {
+    refuseStart("Refusing to start HTTP transport: CONDUIT_S2S_SECRET must be at least 32 characters.");
+  }
   if (raw) return { secret: raw, insecureDev: false };
   if (env.MCP_ALLOW_INSECURE_DEV === "1") {
     return { secret: "", insecureDev: true };
@@ -174,6 +177,40 @@ async function handleMcpRequest(
   res: ServerResponse,
   creds?: DriversnoteCredentials,
 ): Promise<void> {
+  // Bound buffering before handing a parsed body to the SDK (including chunked uploads).
+  let parsedBody: unknown;
+  if (req.method === "POST") {
+    const limit = 1024 * 1024;
+    const tooLarge = () => {
+      res.writeHead(413, { "Content-Type": "application/json", Connection: "close" });
+      res.end(JSON.stringify({ error: "Request body exceeds 1 MiB" }));
+      req.resume();
+    };
+    if (Number(req.headers["content-length"]) > limit) {
+      tooLarge();
+      return;
+    }
+    try {
+      const chunks: Buffer[] = [];
+      let size = 0;
+      for await (const chunk of req) {
+        const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+        size += buffer.length;
+        if (size > limit) {
+          tooLarge();
+          return;
+        }
+        chunks.push(buffer);
+      }
+      parsedBody = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+    } catch {
+      if (!res.headersSent) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Invalid JSON request body" }));
+      }
+      return;
+    }
+  }
   const server = createFreshServer();
   const transport = new StreamableHTTPServerTransport({ enableJsonResponse: true });
 
@@ -185,9 +222,9 @@ async function handleMcpRequest(
   try {
     await server.connect(transport);
     if (creds) {
-      await runWithCredentials(creds, () => transport.handleRequest(req, res));
+      await runWithCredentials(creds, () => transport.handleRequest(req, res, parsedBody));
     } else {
-      await transport.handleRequest(req, res);
+      await transport.handleRequest(req, res, parsedBody);
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
@@ -231,13 +268,27 @@ export async function startHttpTransport(): Promise<HttpServer> {
     logger.warn("AUTH_MODE=env but DRIVERSNOTE_API_KEY is not set; tool calls will return an authentication error.");
   }
 
+  const checkHost = process.env.MCP_ALLOWED_HOSTS !== undefined || !s2sSecret || isLoopbackBindHost(host);
+  const allowedHosts = new Set([
+    "localhost", "127.0.0.1", "[::1]",
+    ...(process.env.MCP_ALLOWED_HOSTS ?? "").split(",").map((h) => h.trim().toLowerCase()).filter(Boolean),
+  ]);
   const httpServer = createHttpServer((req: IncomingMessage, res: ServerResponse) => {
-    const url = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
+    const url = new URL(req.url || "/", "http://localhost");
 
     // Shallow, unauthenticated liveness probe. Must NOT read credentials or call upstream.
     if (url.pathname === "/health" || url.pathname === "/healthz") {
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ status: "ok" }));
+      return;
+    }
+
+    // Match the entire Host authority, allowing only an optional numeric port.
+    const authority = req.headers.host?.toLowerCase();
+    const hostMatch = authority?.match(/^(\[[0-9a-f:]+\]|[a-z0-9.-]+)(?::[0-9]{1,5})?$/);
+    if (checkHost && (!hostMatch || !allowedHosts.has(hostMatch[1]))) {
+      res.writeHead(403, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Host not allowed" }));
       return;
     }
 

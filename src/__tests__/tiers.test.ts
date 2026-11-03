@@ -12,6 +12,13 @@ const opsJson = JSON.parse(readFileSync(resolve(__dirname, "../../schema/operati
 const specs = getAllSpecs();
 
 describe("tier map", () => {
+  it("pins Aaron's 2026-11-03 write decisions in both tier maps", () => {
+    for (const name of ["report_create", "report_update", "report_replace", "trip_bulk_update", "trip_bulk_restore", "location_import", "csv_import_file_import"]) {
+      const info = TOOL_TIERS[`driversnote_${name}`];
+      expect(info).toMatchObject({ tier: "write", pendingAaron: false });
+      expect(tiersJson[info.operation]).toMatchObject({ tier: "write", pendingAaron: false });
+    }
+  });
   it("has 37 read / 26 write / 33 admin tools", () => {
     const counts = { read: 0, write: 0, admin: 0 };
     for (const t of Object.values(TOOL_TIERS)) counts[t.tier]++;

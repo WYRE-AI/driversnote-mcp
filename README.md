@@ -25,14 +25,17 @@ Copy [`.env.example`](.env.example) and set the variables below. The stdio trans
 | `DRIVERSNOTE_API_URL` | No | API host. Defaults to `https://api.driversnote.com/v1/driversnote`. Not a credential. |
 | `DRIVERSNOTE_TOOL_TIERS` | No | Comma-separated `read`, `write`, or `admin`. Defaults to `read`. |
 | `AUTH_MODE` | No | `env` or `gateway`. Defaults to `env`. |
-| `CONDUIT_S2S_SECRET` | Yes for HTTP | Service-to-service secret. Required for HTTP unless `MCP_ALLOW_INSECURE_DEV=1`. |
+| `CONDUIT_S2S_SECRET` | Yes for HTTP | Service-to-service secret, at least 32 characters after trimming. Required for HTTP unless `MCP_ALLOW_INSECURE_DEV=1`. |
 | `MCP_TRANSPORT` | No | `stdio` or `http`. Defaults to `stdio`. |
 | `MCP_HTTP_HOST` | No | Bind address when a real `CONDUIT_S2S_SECRET` is set. Defaults to `127.0.0.1`; container sets `0.0.0.0`. |
+| `MCP_ALLOWED_HOSTS` | No | When set (even empty), enforces localhost, 127.0.0.1 and [::1] plus these comma-separated Host names, without scheme or port. When unset, Host checks apply only to effective loopback binds (including insecure dev). Non-loopback binds with a real S2S secret rely on S2S HMAC without Host checks. Health endpoints are always exempt. |
 | `MCP_HTTP_PORT` | No | HTTP port. Defaults to `8080`. |
 | `MCP_ALLOW_INSECURE_DEV` | No | Set to exactly `1` for local development only. |
 | `LOG_LEVEL` | No | `debug`, `info`, `warn`, or `error`. Defaults to `info`. |
 
 `/health` and `/healthz` stay unauthenticated and do not read credentials.
+
+HTTP POST bodies are limited to 1 MiB (413 when exceeded), including chunked uploads.
 
 ### HTTP authentication
 
@@ -93,6 +96,8 @@ MCP_TRANSPORT=http MCP_ALLOW_INSECURE_DEV=1 npm start
 ```
 
 ## Tool tiers
+
+Aaron's 2026-11-03 decisions confirm report_create, report_update, report_replace, trip_bulk_update, trip_bulk_restore, location_import and csv_import_file_import as write. All 33 admin tools are approved and off by default; no tools are pending (37 read / 26 write / 33 admin).
 
 `DRIVERSNOTE_TOOL_TIERS` is a comma-separated list of `read`, `write`, or `admin`. Defaults to `read`.
 

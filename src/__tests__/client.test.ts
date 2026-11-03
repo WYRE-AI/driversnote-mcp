@@ -103,6 +103,16 @@ describe("executeGraphQL", () => {
     }
   });
 
+  it("caps upstream HTTP error detail at 300 characters after redaction", async () => {
+    fetchMock(() => json({ fault: { faultstring: KEY + "x".repeat(1000) } }, 502));
+    const r = await executeGraphQL("query { x }", {});
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.error.message).not.toContain(KEY);
+      expect(r.error.message.slice("Driversnote API returned HTTP 502: ".length)).toHaveLength(300);
+    }
+  });
+
   it("times out via AbortController", async () => {
     vi.useFakeTimers();
     fetchMock(

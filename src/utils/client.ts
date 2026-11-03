@@ -86,7 +86,7 @@ export function getCredentials(env: NodeJS.ProcessEnv = process.env): Driversnot
   // SECURITY-REVIEW: credential resolution; gateway mode must never read the env key.
   const scoped = credentialStore.getStore();
   if (scoped) return scoped;
-  if (env.AUTH_MODE === "gateway") return null;
+  if (env.AUTH_MODE?.trim() === "gateway") return null;
   const apiKey = (env.DRIVERSNOTE_API_KEY ?? "").trim();
   return isPlausibleApiKey(apiKey) ? { apiKey } : null;
 }
@@ -234,7 +234,7 @@ export async function executeGraphQL(
     };
   }
   if (!response.ok) {
-    const detail = fault && typeof fault.faultstring === "string" ? `: ${redact(fault.faultstring, apiKey)}` : "";
+    const detail = fault && typeof fault.faultstring === "string" ? `: ${redact(fault.faultstring, apiKey).slice(0, 300)}` : "";
     return { ok: false, error: { kind: "http", message: `Driversnote API returned HTTP ${response.status}${detail}` } };
   }
 

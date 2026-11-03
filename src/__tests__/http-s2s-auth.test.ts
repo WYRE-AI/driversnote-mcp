@@ -3,15 +3,15 @@
  * end-to-end tool call against a local mock of the Driversnote API.
  */
 import { createHmac } from "node:crypto";
-import { createServer, type Server } from "node:http";
+import { createServer, request, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { startHttpTransport } from "../index.js";
 
-const S2S_SECRET = "s2s-do-not-log-7f3a";
+const S2S_SECRET = "test-only-s2s-value-at-least-32-chars";
 const ENV_KEY = "env-key-must-not-be-used";
 const ENV_KEYS = [
-  "CONDUIT_S2S_SECRET", "MCP_ALLOW_INSECURE_DEV", "MCP_HTTP_PORT", "MCP_HTTP_HOST", "AUTH_MODE",
+  "MCP_ALLOWED_HOSTS", "CONDUIT_S2S_SECRET", "MCP_ALLOW_INSECURE_DEV", "MCP_HTTP_PORT", "MCP_HTTP_HOST", "AUTH_MODE",
   "DRIVERSNOTE_API_KEY", "DRIVERSNOTE_API_URL", "DRIVERSNOTE_TOOL_TIERS", "LOG_LEVEL",
 ] as const;
 
@@ -192,5 +192,112 @@ describe("AUTH_MODE=gateway", () => {
     expect(b.status).toBe(200);
     expect([...upstreamKeys].sort()).toEqual(["user-a-key", "user-b-key"]);
     expect(upstreamKeys).not.toContain(ENV_KEY);
+  });
+});
+
+describe("HTTP hardening", () => {
+  beforeEach(() => {
+    process.env.CONDUIT_S2S_SECRET = S2S_SECRET;
+  });
+
+  it("rejects short secrets even in insecure dev mode without logging them", async () => {
+    process.env.CONDUIT_S2S_SECRET = "x".repeat(31);
+    process.env.MCP_ALLOW_INSECURE_DEV = "1";
+    vi.spyOn(process, "exit").mockImplementation((() => { throw new Error("exit"); }) as never);
+    const log = vi.spyOn(console, "error").mockImplementation(() => {});
+    await expect(startHttpTransport()).rejects.toThrow("exit");
+    expect(JSON.stringify(log.mock.calls)).toContain("at least 32 characters");
+    expect(JSON.stringify(log.mock.calls)).not.toContain("x".repeat(31));
+  });
+
+  function hostStatus(port: number, path: string, host: string) {
+    return new Promise<number | undefined>((resolve, reject) => {
+      const req = request(`http://127.0.0.1:${port}${path}`, { headers: { Host: host } }, (res) => {
+        res.resume();
+        resolve(res.statusCode);
+      });
+      req.on("error", reject);
+      req.end();
+    });
+  }
+
+  it.each([undefined, "mcp.example.com"])("exempts health probes from Host checks (allowlist=%s)", async (allowed) => {
+    if (allowed !== undefined) process.env.MCP_ALLOWED_HOSTS = allowed;
+    const port = await listen();
+    for (const path of ["/health", "/healthz"]) {
+      for (const host of ["internal.azure.local", "10.0.0.5:8080", "invalid:port"]) {
+        expect(await hostStatus(port, path, host)).toBe(200);
+      }
+    }
+    expect(upstreamKeys).toHaveLength(0);
+  });
+
+  it.each(["127.0.0.1", "0.0.0.0"])("enforces configured hosts on MCP when bound to %s", async (bind) => {
+    process.env.MCP_HTTP_HOST = bind;
+    process.env.MCP_ALLOWED_HOSTS = " mcp.example.com, OTHER.example.com ";
+    const port = await listen();
+    for (const host of ["attacker.example", "mcp.example.com.evil", "localhost:bad"]) {
+      expect(await hostStatus(port, "/mcp", host)).toBe(403);
+    }
+    for (const host of ["localhost", "127.0.0.1", "[::1]:8080", "MCP.example.com:8080", "other.example.com"]) {
+      expect(await hostStatus(port, "/mcp", host)).toBe(401);
+    }
+  });
+
+  it.each([false, true])("defaults to loopback-only hosts on effective loopback binds (insecure=%s)", async (insecure) => {
+    if (insecure) {
+      delete process.env.CONDUIT_S2S_SECRET;
+      process.env.MCP_ALLOW_INSECURE_DEV = "1";
+      process.env.MCP_HTTP_HOST = "0.0.0.0";
+      vi.spyOn(console, "error").mockImplementation(() => {});
+    }
+    const port = await listen();
+    expect(await hostStatus(port, "/mcp", "attacker.example")).toBe(403);
+    // An allowed host reaches normal routing, without needing credentials.
+    expect(await hostStatus(port, "/unknown", "localhost:8080")).toBe(404);
+  });
+
+  it("enforces an explicitly empty allowlist on a non-loopback bind", async () => {
+    process.env.MCP_HTTP_HOST = "0.0.0.0";
+    process.env.MCP_ALLOWED_HOSTS = "";
+    const port = await listen();
+    expect(await hostStatus(port, "/mcp", "internal.azure.local")).toBe(403);
+    expect(await hostStatus(port, "/mcp", "127.0.0.1")).toBe(401);
+  });
+
+  it("allows internal hosts on non-loopback binds with S2S and no allowlist", async () => {
+    process.env.MCP_HTTP_HOST = "0.0.0.0";
+    process.env.AUTH_MODE = "gateway";
+    const port = await listen();
+    for (const host of ["sidecar.internal.azure.local:8080", "10.0.0.5"]) {
+      expect(await hostStatus(port, "/mcp", host)).toBe(401);
+      const response = await rpc(port, {
+        Host: host,
+        "X-Gateway-S2S": mint(S2S_SECRET),
+        "X-Driversnote-Api-Key": "gateway-key",
+      }, "tools/call", { name: "driversnote_company_info", arguments: {} });
+      expect(response.status).toBe(200);
+    }
+    expect(upstreamKeys).toEqual(["gateway-key", "gateway-key"]);
+  });
+
+  it.each([false, true])("rejects oversized POST bodies (chunked=%s)", async (chunked) => {
+    const port = await listen();
+    const { request } = await import("node:http");
+    const status = await new Promise<number | undefined>((resolve, reject) => {
+      const req = request(`http://127.0.0.1:${port}/mcp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Gateway-S2S": mint(S2S_SECRET),
+          ...(chunked ? {} : { "Content-Length": String(1024 * 1024 + 1) }),
+        },
+      }, (res) => { res.resume(); resolve(res.statusCode); });
+      req.on("error", reject);
+      req.write("x".repeat(1024 * 1024 + 1));
+      req.end();
+    });
+    expect(status).toBe(413);
+    expect(upstreamKeys).toHaveLength(0);
   });
 });
