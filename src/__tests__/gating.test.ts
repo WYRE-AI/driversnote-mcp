@@ -44,16 +44,16 @@ describe("tool listing by tier", () => {
     expect(tools.every((t) => TOOL_TIERS[t.name].tier === "read")).toBe(true);
     expect(tools.every((t) => t.annotations?.readOnlyHint === true)).toBe(true);
   });
-  it("read,write lists 61 tools", () => {
+  it("read,write lists 63 tools", () => {
     process.env.DRIVERSNOTE_TOOL_TIERS = "read,write";
     const tools = listEnabledTools();
-    expect(tools).toHaveLength(61);
+    expect(tools).toHaveLength(63);
     expect(tools.some((t) => TOOL_TIERS[t.name].tier === "admin")).toBe(false);
   });
   it("write alone lists only write tools", () => {
     process.env.DRIVERSNOTE_TOOL_TIERS = "write";
     const tools = listEnabledTools();
-    expect(tools).toHaveLength(24);
+    expect(tools).toHaveLength(26);
     expect(tools.every((t) => TOOL_TIERS[t.name].tier === "write")).toBe(true);
   });
   it("read,write,admin lists all 96", () => {

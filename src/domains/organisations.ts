@@ -96,7 +96,7 @@ export const organisationsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_organisation_archive",
       description:
-        "[write] ⚠ HIGH-IMPACT (reversible) Archive a workplace (API name: organisation). Reversible with driversnote_organisation_unarchive. Arguments are the fields of the GraphQL mutation `input`.",
+        "⚠ HIGH-IMPACT [admin] Archive a workplace (API name: organisation). Reversible with driversnote_organisation_unarchive. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
       annotations: {
         title: "Driversnote: Organisation Archive",
         readOnlyHint: false,
@@ -166,7 +166,7 @@ export const organisationsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_organisation_delete",
       description:
-        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a workplace (API name: organisation). Arguments are the fields of the GraphQL mutation `input`.",
+        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a workplace (API name: organisation). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
       annotations: {
         title: "Driversnote: Organisation Delete",
         readOnlyHint: false,

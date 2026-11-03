@@ -185,7 +185,7 @@ export const reportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_report_create",
       description:
-        "⚠ HIGH-IMPACT [admin] Create a reimbursement/tax report for a vehicle and date range (amounts are calculated from trips and rates). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "[write] Create a reimbursement/tax report for a vehicle and date range (amounts are calculated from trips and rates). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Report Create",
         readOnlyHint: false,
@@ -240,7 +240,7 @@ export const reportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_report_delete",
       description:
-        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a report. Reimbursement documents are removed. Arguments are the fields of the GraphQL mutation `input`.",
+        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a report. Reimbursement documents are removed. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
       annotations: {
         title: "Driversnote: Report Delete",
         readOnlyHint: false,
@@ -268,7 +268,7 @@ export const reportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_report_replace",
       description:
-        "⚠ HIGH-IMPACT [admin] Regenerate (replace) a report with current trips and rates. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "[write] Regenerate (replace) a report with current trips and rates. Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Report Replace",
         readOnlyHint: false,
@@ -296,7 +296,7 @@ export const reportsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_report_update",
       description:
-        "⚠ HIGH-IMPACT [admin] Update a report's attributes (title). Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
+        "[write] Update a report's attributes (title). Arguments are the fields of the GraphQL mutation `input`.",
       annotations: {
         title: "Driversnote: Report Update",
         readOnlyHint: false,

@@ -12,10 +12,10 @@ const opsJson = JSON.parse(readFileSync(resolve(__dirname, "../../schema/operati
 const specs = getAllSpecs();
 
 describe("tier map", () => {
-  it("has 37 read / 24 write / 35 admin tools", () => {
+  it("has 37 read / 26 write / 33 admin tools", () => {
     const counts = { read: 0, write: 0, admin: 0 };
     for (const t of Object.values(TOOL_TIERS)) counts[t.tier]++;
-    expect(counts).toEqual({ read: 37, write: 24, admin: 35 });
+    expect(counts).toEqual({ read: 37, write: 26, admin: 33 });
     expect(Object.keys(TOOL_TIERS)).toHaveLength(96);
   });
 

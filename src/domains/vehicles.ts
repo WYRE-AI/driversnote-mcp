@@ -160,7 +160,7 @@ export const vehiclesSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_vehicle_delete",
       description:
-        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a vehicle. Arguments are the fields of the GraphQL mutation `input`.",
+        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a vehicle. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
       annotations: {
         title: "Driversnote: Vehicle Delete",
         readOnlyHint: false,

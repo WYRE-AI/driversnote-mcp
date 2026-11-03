@@ -164,7 +164,7 @@ export const locationsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_location_delete",
       description:
-        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a saved location. Arguments are the fields of the GraphQL mutation `input`.",
+        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a saved location. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
       annotations: {
         title: "Driversnote: Location Delete",
         readOnlyHint: false,

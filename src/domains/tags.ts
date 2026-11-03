@@ -85,7 +85,7 @@ export const tagsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_tag_category_delete",
       description:
-        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a tag category from a workplace. Arguments are the fields of the GraphQL mutation `input`.",
+        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a tag category from a workplace. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
       annotations: {
         title: "Driversnote: Tag Category Delete",
         readOnlyHint: false,
@@ -189,7 +189,7 @@ export const tagsSpecs: ToolSpec[] = [
     tool: {
       name: "driversnote_tag_delete",
       description:
-        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a tag. Arguments are the fields of the GraphQL mutation `input`.",
+        "⚠ DESTRUCTIVE — IRREVERSIBLE [admin] Delete a tag. Arguments are the fields of the GraphQL mutation `input`. Pending tier sign-off.",
       annotations: {
         title: "Driversnote: Tag Delete",
         readOnlyHint: false,
