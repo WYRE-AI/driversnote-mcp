@@ -6,6 +6,7 @@ import { createHmac } from "node:crypto";
 import { createServer, request, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { logger } from "../utils/logger.js";
 import { startHttpTransport } from "../index.js";
 
 const S2S_SECRET = "test-only-s2s-value-at-least-32-chars";
@@ -46,7 +47,10 @@ beforeEach(async () => {
     delete process.env[k];
   }
   process.env.LOG_LEVEL = "error";
-  process.env.MCP_HTTP_PORT = "0";
+  const portProbe = createServer();
+  await new Promise<void>((resolve) => portProbe.listen(0, "127.0.0.1", resolve));
+  process.env.MCP_HTTP_PORT = String((portProbe.address() as AddressInfo).port);
+  await new Promise<void>((resolve) => portProbe.close(() => resolve()));
   process.env.MCP_HTTP_HOST = "127.0.0.1";
   upstreamKeys = [];
   upstream = createServer((req, res) => {
@@ -75,6 +79,33 @@ afterEach(async () => {
 afterAll(() => vi.unstubAllGlobals());
 
 describe("startup", () => {
+  it.each(["0", "65536", "abc", "8080abc", "1.5", ""])("rejects invalid MCP_HTTP_PORT=%s", async (port) => {
+    process.env.CONDUIT_S2S_SECRET = S2S_SECRET;
+    process.env.MCP_HTTP_PORT = port;
+    vi.spyOn(process, "exit").mockImplementation((() => { throw new Error("exit"); }) as never);
+    const error = vi.spyOn(logger, "error").mockImplementation(() => {});
+    await expect(startHttpTransport()).rejects.toThrow("exit");
+    expect(error).toHaveBeenCalledWith(expect.stringContaining("MCP_HTTP_PORT must be an integer between 1 and 65535"));
+  });
+
+  it("accepts MCP_HTTP_PORT=8080", async () => {
+    process.env.CONDUIT_S2S_SECRET = S2S_SECRET;
+    process.env.MCP_HTTP_PORT = "8080";
+    expect(await listen()).toBe(8080);
+  });
+
+  it("warns about allowlist entries that will never match", async () => {
+    process.env.CONDUIT_S2S_SECRET = S2S_SECRET;
+    process.env.MCP_ALLOWED_HOSTS = "example.com:443,[::1]:8080,::1,fe80::1,example.com,[::1]";
+    const warn = vi.spyOn(logger, "warn").mockImplementation(() => {});
+    await listen();
+    for (const entry of ["example.com:443", "[::1]:8080", "::1", "fe80::1"]) {
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining(`entry "${entry}"`));
+      expect(warn).toHaveBeenCalledWith(expect.stringMatching(new RegExp(`will never match`)));
+    }
+    expect(warn.mock.calls.filter(([message]) => message.includes("will never match"))).toHaveLength(4);
+  });
+
   it("refuses to start without CONDUIT_S2S_SECRET", async () => {
     const exit = vi.spyOn(process, "exit").mockImplementation((() => {
       throw new Error("exit");
@@ -236,7 +267,7 @@ describe("HTTP hardening", () => {
     process.env.MCP_HTTP_HOST = bind;
     process.env.MCP_ALLOWED_HOSTS = " mcp.example.com, OTHER.example.com ";
     const port = await listen();
-    for (const host of ["attacker.example", "mcp.example.com.evil", "localhost:bad"]) {
+    for (const host of ["attacker.example", "mcp.example.com.evil", "localhost:bad", "localhost:0", "localhost:65536", "localhost:abc"]) {
       expect(await hostStatus(port, "/mcp", host)).toBe(403);
     }
     for (const host of ["localhost", "127.0.0.1", "[::1]:8080", "MCP.example.com:8080", "other.example.com"]) {
@@ -281,6 +312,27 @@ describe("HTTP hardening", () => {
     expect(upstreamKeys).toEqual(["gateway-key", "gateway-key"]);
   });
 
+  it("accepts a small chunked JSON body", async () => {
+    const port = await listen();
+    const status = await new Promise<number | undefined>((resolve, reject) => {
+      const req = request(`http://127.0.0.1:${port}/mcp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", Accept: "application/json, text/event-stream",
+          "Transfer-Encoding": "chunked", "X-Gateway-S2S": mint(S2S_SECRET),
+        },
+      }, (res) => {
+        res.resume();
+        res.on("end", () => resolve(res.statusCode));
+        res.on("error", reject);
+      });
+      req.on("error", reject);
+      req.write('{"jsonrpc":"2.0",');
+      req.end('"id":1,"method":"tools/list","params":{}}');
+    });
+    expect(status).toBe(200);
+  });
+
   it.each([false, true])("rejects oversized POST bodies (chunked=%s)", async (chunked) => {
     const port = await listen();
     const { request } = await import("node:http");
@@ -290,11 +342,20 @@ describe("HTTP hardening", () => {
         headers: {
           "Content-Type": "application/json",
           "X-Gateway-S2S": mint(S2S_SECRET),
-          ...(chunked ? {} : { "Content-Length": String(1024 * 1024 + 1) }),
+          ...(chunked ? { "Transfer-Encoding": "chunked" } : { "Content-Length": String(1024 * 1024 + 1) }),
         },
-      }, (res) => { res.resume(); resolve(res.statusCode); });
+      }, (res) => {
+        let body = "";
+        res.setEncoding("utf8");
+        res.on("data", (chunk) => { body += chunk; });
+        res.on("error", reject);
+        res.on("end", () => {
+          expect(JSON.parse(body)).toEqual({ error: "Request body exceeds 1 MiB" });
+          resolve(res.statusCode);
+        });
+      });
       req.on("error", reject);
-      req.write("x".repeat(1024 * 1024 + 1));
+      for (let i = 0; i < 17; i++) req.write(Buffer.alloc(64 * 1024, "x"));
       req.end();
     });
     expect(status).toBe(413);

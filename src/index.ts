@@ -182,6 +182,7 @@ async function handleMcpRequest(
   if (req.method === "POST") {
     const limit = 1024 * 1024;
     const tooLarge = () => {
+      if (res.headersSent) return;
       res.writeHead(413, { "Content-Type": "application/json", Connection: "close" });
       res.end(JSON.stringify({ error: "Request body exceeds 1 MiB" }));
       req.resume();
@@ -193,7 +194,8 @@ async function handleMcpRequest(
     try {
       const chunks: Buffer[] = [];
       let size = 0;
-      for await (const chunk of req) {
+      // Early return must not destroy the socket before the 413 is flushed.
+      for await (const chunk of req.iterator({ destroyOnReturn: false })) {
         const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
         size += buffer.length;
         if (size > limit) {
@@ -252,7 +254,11 @@ async function startStdioTransport(): Promise<void> {
  */
 export async function startHttpTransport(): Promise<HttpServer> {
   const { secret: s2sSecret, insecureDev } = resolveS2sSecret();
-  const port = parseInt(process.env.MCP_HTTP_PORT || "8080", 10);
+  const rawPort = process.env.MCP_HTTP_PORT ?? "8080";
+  if (!/^\d+$/.test(rawPort) || Number(rawPort) < 1 || Number(rawPort) > 65535) {
+    refuseStart("Refusing to start HTTP transport: MCP_HTTP_PORT must be an integer between 1 and 65535.");
+  }
+  const port = Number(rawPort);
   const host = resolveBindHost(s2sSecret);
   if (insecureDev) {
     // error level so LOG_LEVEL=warn|error cannot hide the bypass.
@@ -269,9 +275,15 @@ export async function startHttpTransport(): Promise<HttpServer> {
   }
 
   const checkHost = process.env.MCP_ALLOWED_HOSTS !== undefined || !s2sSecret || isLoopbackBindHost(host);
+  const configuredHosts = (process.env.MCP_ALLOWED_HOSTS ?? "").split(",").map((h) => h.trim()).filter(Boolean);
+  for (const entry of configuredHosts) {
+    if (entry.includes(":") && !/^\[[0-9a-f:]+\]$/i.test(entry)) {
+      logger.warn(`MCP_ALLOWED_HOSTS entry "${entry}" contains a port or unbracketed IPv6 address and will never match.`);
+    }
+  }
   const allowedHosts = new Set([
     "localhost", "127.0.0.1", "[::1]",
-    ...(process.env.MCP_ALLOWED_HOSTS ?? "").split(",").map((h) => h.trim().toLowerCase()).filter(Boolean),
+    ...configuredHosts.map((h) => h.toLowerCase()),
   ]);
   const httpServer = createHttpServer((req: IncomingMessage, res: ServerResponse) => {
     const url = new URL(req.url || "/", "http://localhost");
@@ -285,8 +297,8 @@ export async function startHttpTransport(): Promise<HttpServer> {
 
     // Match the entire Host authority, allowing only an optional numeric port.
     const authority = req.headers.host?.toLowerCase();
-    const hostMatch = authority?.match(/^(\[[0-9a-f:]+\]|[a-z0-9.-]+)(?::[0-9]{1,5})?$/);
-    if (checkHost && (!hostMatch || !allowedHosts.has(hostMatch[1]))) {
+    const hostMatch = authority?.match(/^(\[[0-9a-f:]+\]|[a-z0-9.-]+)(?::([0-9]{1,5}))?$/);
+    if (checkHost && (!hostMatch || (hostMatch[2] !== undefined && (Number(hostMatch[2]) < 1 || Number(hostMatch[2]) > 65535)) || !allowedHosts.has(hostMatch[1]))) {
       res.writeHead(403, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Host not allowed" }));
       return;
