@@ -561,7 +561,7 @@
   "kind": "mutation",
   "tier": "admin",
   "pendingAaron": true,
-  "note": "PENDING AARON: Irreversible: no restore mutation (Napoleon brief said write; irreversible rule makes it admin)."
+  "note": "PENDING AARON: Irreversible: no restore mutation."
  },
  "vehicleUnarchive": {
   "kind": "mutation",

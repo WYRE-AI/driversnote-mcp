@@ -109,7 +109,7 @@ export const TOOL_TIERS: Record<string, ToolTierInfo> = {
   "driversnote_trip_update": { tier: "write", pendingAaron: false, operation: "tripUpdate", note: "" },
   "driversnote_vehicle_archive": { tier: "write", pendingAaron: false, operation: "vehicleArchive", note: "Reversible via vehicleUnarchive." },
   "driversnote_vehicle_create": { tier: "write", pendingAaron: false, operation: "vehicleCreate", note: "" },
-  "driversnote_vehicle_delete": { tier: "admin", pendingAaron: true, operation: "vehicleDelete", note: "PENDING AARON: Irreversible: no restore mutation (Napoleon brief said write; irreversible rule makes it admin)." },
+  "driversnote_vehicle_delete": { tier: "admin", pendingAaron: true, operation: "vehicleDelete", note: "PENDING AARON: Irreversible: no restore mutation." },
   "driversnote_vehicle_unarchive": { tier: "write", pendingAaron: false, operation: "vehicleUnarchive", note: "" },
   "driversnote_vehicle_update": { tier: "write", pendingAaron: false, operation: "vehicleUpdate", note: "" },
 };
