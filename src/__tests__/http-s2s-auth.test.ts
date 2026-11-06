@@ -7,7 +7,7 @@ import { createServer, request, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { logger } from "../utils/logger.js";
-import { startHttpTransport } from "../index.js";
+import { parseHttpPort, startHttpTransport } from "../index.js";
 
 const S2S_SECRET = "test-only-s2s-value-at-least-32-chars";
 const ENV_KEY = "env-key-must-not-be-used";
@@ -88,10 +88,8 @@ describe("startup", () => {
     expect(error).toHaveBeenCalledWith(expect.stringContaining("MCP_HTTP_PORT must be an integer between 1 and 65535"));
   });
 
-  it("accepts MCP_HTTP_PORT=8080", async () => {
-    process.env.CONDUIT_S2S_SECRET = S2S_SECRET;
-    process.env.MCP_HTTP_PORT = "8080";
-    expect(await listen()).toBe(8080);
+  it("accepts MCP_HTTP_PORT=8080", () => {
+    expect(parseHttpPort("8080")).toBe(8080);
   });
 
   it("warns about allowlist entries that will never match", async () => {

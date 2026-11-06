@@ -222,14 +222,14 @@ export async function executeGraphQL(
   // Apigee faults: {"fault": {"faultstring": ..., "detail": {"errorcode": ...}}}
   const fault = isRecord(body) && isRecord(body.fault) ? body.fault : undefined;
   if (response.status === 401 || (fault && response.status === 403)) {
-    return { ok: false, error: { kind: "auth", message: AUTH_ERROR_MESSAGE } };
+    return { ok: false, error: { kind: "auth", message: `Driversnote API returned HTTP ${response.status}: ${AUTH_ERROR_MESSAGE}` } };
   }
   if (response.status === 429) {
     return {
       ok: false,
       error: {
         kind: "quota",
-        message: "Driversnote API quota or rate limit exceeded (the public API allows 2,000 requests per month). Try again later.",
+        message: "Driversnote API returned HTTP 429: quota or rate limit exceeded (the public API allows 2,000 requests per month). Try again later.",
       },
     };
   }

@@ -71,7 +71,7 @@ describe("executeGraphQL", () => {
       json({ fault: { faultstring: "Invalid ApiKey", detail: { errorcode: "oauth.v2.InvalidApiKey" } } }, 401),
     );
     const r = await executeGraphQL("query { x }", {});
-    expect(r).toEqual({ ok: false, error: { kind: "auth", message: AUTH_ERROR_MESSAGE } });
+    expect(r).toEqual({ ok: false, error: { kind: "auth", message: expect.stringContaining(AUTH_ERROR_MESSAGE) } });
     expect(AUTH_ERROR_MESSAGE.toLowerCase()).toContain("invalid or missing driversnote api key");
   });
 

@@ -252,13 +252,18 @@ async function startStdioTransport(): Promise<void> {
  * mode the API key is read from X-Driversnote-Api-Key on each request and a
  * request without it is rejected; there is no fallback to DRIVERSNOTE_API_KEY.
  */
+/** Parses MCP_HTTP_PORT; returns undefined unless it is an integer in 1..65535. */
+export function parseHttpPort(raw: string): number | undefined {
+  const port = Number(raw);
+  return /^\d+$/.test(raw) && port >= 1 && port <= 65535 ? port : undefined;
+}
+
 export async function startHttpTransport(): Promise<HttpServer> {
   const { secret: s2sSecret, insecureDev } = resolveS2sSecret();
-  const rawPort = process.env.MCP_HTTP_PORT ?? "8080";
-  if (!/^\d+$/.test(rawPort) || Number(rawPort) < 1 || Number(rawPort) > 65535) {
+  const port = parseHttpPort(process.env.MCP_HTTP_PORT ?? "8080");
+  if (port === undefined) {
     refuseStart("Refusing to start HTTP transport: MCP_HTTP_PORT must be an integer between 1 and 65535.");
   }
-  const port = Number(rawPort);
   const host = resolveBindHost(s2sSecret);
   if (insecureDev) {
     // error level so LOG_LEVEL=warn|error cannot hide the bypass.

@@ -1,7 +1,7 @@
 # Driversnote MCP Server
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
 
 A Model Context Protocol (MCP) server for the Driversnote Public API. Enables AI assistants to investigate trips, vehicles, reports, teams, organisations, locations, odometer readings, rates and tags.
 
