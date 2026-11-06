@@ -1,0 +1,120 @@
+/**
+ * Tier map: tool name -> { tier, pendingAaron, operation, note }.
+ *
+ * Copied exactly from schema/tiers.json (do NOT edit tiers here; the tier test
+ * compares this file against schema/tiers.json). Also holds the
+ * operation -> tool name mapping.
+ */
+
+export type ToolTier = "read" | "write" | "admin";
+
+export interface ToolTierInfo {
+  tier: ToolTier;
+  pendingAaron: boolean;
+  operation: string;
+  note: string;
+}
+
+export const TOOL_TIERS: Record<string, ToolTierInfo> = {
+  "driversnote_company_info": { tier: "read", pendingAaron: false, operation: "companyInfo", note: "" },
+  "driversnote_contacts_list": { tier: "read", pendingAaron: false, operation: "contacts", note: "" },
+  "driversnote_contacts_recent": { tier: "read", pendingAaron: false, operation: "contactsMostRecentlyUsed", note: "" },
+  "driversnote_countries_list": { tier: "read", pendingAaron: false, operation: "countries", note: "" },
+  "driversnote_country_get": { tier: "read", pendingAaron: false, operation: "country", note: "" },
+  "driversnote_csv_import_file_get": { tier: "read", pendingAaron: false, operation: "csvImportFile", note: "" },
+  "driversnote_locales_list": { tier: "read", pendingAaron: false, operation: "locales", note: "" },
+  "driversnote_location_get": { tier: "read", pendingAaron: false, operation: "location", note: "" },
+  "driversnote_locations_list": { tier: "read", pendingAaron: false, operation: "locations", note: "" },
+  "driversnote_odometer_reading_get": { tier: "read", pendingAaron: false, operation: "odometerReading", note: "" },
+  "driversnote_odometer_readings_list": { tier: "read", pendingAaron: false, operation: "odometerReadings", note: "" },
+  "driversnote_odometer_usages_list": { tier: "read", pendingAaron: false, operation: "odometerUsages", note: "" },
+  "driversnote_organisation_get": { tier: "read", pendingAaron: false, operation: "organisation", note: "" },
+  "driversnote_organisations_list": { tier: "read", pendingAaron: false, operation: "organisations", note: "" },
+  "driversnote_report_preview": { tier: "read", pendingAaron: false, operation: "previewReport", note: "" },
+  "driversnote_previous_period_reports": { tier: "read", pendingAaron: false, operation: "previousPeriodReports", note: "" },
+  "driversnote_rates_list": { tier: "read", pendingAaron: false, operation: "rates", note: "" },
+  "driversnote_reimbursement_methods_list": { tier: "read", pendingAaron: false, operation: "reimbursementMethods", note: "" },
+  "driversnote_report_get": { tier: "read", pendingAaron: false, operation: "report", note: "" },
+  "driversnote_report_public_get": { tier: "read", pendingAaron: false, operation: "reportPublic", note: "" },
+  "driversnote_reporting_period_calculate": { tier: "read", pendingAaron: false, operation: "reportingPeriodCalculation", note: "" },
+  "driversnote_reporting_period_intervals_list": { tier: "read", pendingAaron: false, operation: "reportingPeriodIntervals", note: "" },
+  "driversnote_reports_list": { tier: "read", pendingAaron: false, operation: "reports", note: "" },
+  "driversnote_standard_rates_list": { tier: "read", pendingAaron: false, operation: "standardRates", note: "" },
+  "driversnote_stored_attachment_get": { tier: "read", pendingAaron: false, operation: "storedAttachment", note: "" },
+  "driversnote_tag_categories_default_list": { tier: "read", pendingAaron: false, operation: "tagCategoriesDefault", note: "" },
+  "driversnote_team_get": { tier: "read", pendingAaron: false, operation: "team", note: "" },
+  "driversnote_team_report_get": { tier: "read", pendingAaron: false, operation: "teamReport", note: "" },
+  "driversnote_team_report_states_list": { tier: "read", pendingAaron: false, operation: "teamReportStates", note: "" },
+  "driversnote_team_report_tab_counts": { tier: "read", pendingAaron: false, operation: "teamReportTabCounts", note: "" },
+  "driversnote_team_reports_list": { tier: "read", pendingAaron: false, operation: "teamReports", note: "" },
+  "driversnote_teams_list": { tier: "read", pendingAaron: false, operation: "teams", note: "" },
+  "driversnote_time_zones_list": { tier: "read", pendingAaron: false, operation: "timeZones", note: "" },
+  "driversnote_trips_list": { tier: "read", pendingAaron: false, operation: "trips", note: "" },
+  "driversnote_unreported_trips_overview": { tier: "read", pendingAaron: false, operation: "unreportedTripsOverview", note: "" },
+  "driversnote_vehicle_get": { tier: "read", pendingAaron: false, operation: "vehicle", note: "" },
+  "driversnote_vehicles_list": { tier: "read", pendingAaron: false, operation: "vehicles", note: "" },
+  "driversnote_contact_create": { tier: "write", pendingAaron: false, operation: "contactCreate", note: "" },
+  "driversnote_csv_import_file_create": { tier: "write", pendingAaron: false, operation: "csvImportFileCreate", note: "" },
+  "driversnote_csv_import_file_import": { tier: "write", pendingAaron: false, operation: "csvImportFileImport", note: "Bulk-creates trips from an uploaded CSV." },
+  "driversnote_location_create": { tier: "write", pendingAaron: false, operation: "locationCreate", note: "" },
+  "driversnote_location_delete": { tier: "admin", pendingAaron: false, operation: "locationDelete", note: "Irreversible: no locationRestore mutation." },
+  "driversnote_location_import": { tier: "write", pendingAaron: false, operation: "locationImport", note: "Bulk-creates saved locations." },
+  "driversnote_location_update": { tier: "write", pendingAaron: false, operation: "locationUpdate", note: "" },
+  "driversnote_odometer_reading_create": { tier: "write", pendingAaron: false, operation: "odometerReadingCreate", note: "" },
+  "driversnote_odometer_reading_delete": { tier: "admin", pendingAaron: false, operation: "odometerReadingDelete", note: "Irreversible: no restore mutation; odometer readings feed report totals." },
+  "driversnote_odometer_reading_update": { tier: "write", pendingAaron: false, operation: "odometerReadingUpdate", note: "" },
+  "driversnote_organisation_archive": { tier: "admin", pendingAaron: false, operation: "organisationArchive", note: "Org archive is admin per the brief (reversible via organisationUnarchive)." },
+  "driversnote_organisation_create": { tier: "write", pendingAaron: false, operation: "organisationCreate", note: "" },
+  "driversnote_organisation_delete": { tier: "admin", pendingAaron: false, operation: "organisationDelete", note: "Irreversible: no restore mutation." },
+  "driversnote_organisation_unarchive": { tier: "write", pendingAaron: false, operation: "organisationUnarchive", note: "" },
+  "driversnote_organisation_update": { tier: "admin", pendingAaron: false, operation: "organisationUpdate", note: "can change the workplace reimbursement method, which drives reimbursement amounts." },
+  "driversnote_rate_create": { tier: "admin", pendingAaron: false, operation: "rateCreate", note: "reimbursement rates (money)." },
+  "driversnote_rate_delete": { tier: "admin", pendingAaron: false, operation: "rateDelete", note: "reimbursement rates (money); irreversible." },
+  "driversnote_rate_update": { tier: "admin", pendingAaron: false, operation: "rateUpdate", note: "reimbursement rates (money)." },
+  "driversnote_report_create": { tier: "write", pendingAaron: false, operation: "reportCreate", note: "" },
+  "driversnote_report_delete": { tier: "admin", pendingAaron: false, operation: "reportDelete", note: "Irreversible: no restore mutation; reimbursement document." },
+  "driversnote_report_replace": { tier: "write", pendingAaron: false, operation: "reportReplace", note: "" },
+  "driversnote_report_update": { tier: "write", pendingAaron: false, operation: "reportUpdate", note: "" },
+  "driversnote_reporting_setting_update": { tier: "admin", pendingAaron: false, operation: "reportingSettingUpdate", note: "changes reporting periods used for reimbursement." },
+  "driversnote_tag_category_create": { tier: "write", pendingAaron: false, operation: "tagCategoryCreate", note: "" },
+  "driversnote_tag_category_delete": { tier: "admin", pendingAaron: false, operation: "tagCategoryDelete", note: "Irreversible: no restore mutation." },
+  "driversnote_tag_category_update": { tier: "write", pendingAaron: false, operation: "tagCategoryUpdate", note: "" },
+  "driversnote_tag_create": { tier: "write", pendingAaron: false, operation: "tagCreate", note: "" },
+  "driversnote_tag_delete": { tier: "admin", pendingAaron: false, operation: "tagDelete", note: "Irreversible: no restore mutation." },
+  "driversnote_tag_update": { tier: "write", pendingAaron: false, operation: "tagUpdate", note: "" },
+  "driversnote_team_create": { tier: "admin", pendingAaron: false, operation: "teamCreate", note: "Account/access change: creates a team the caller administers." },
+  "driversnote_team_delete": { tier: "admin", pendingAaron: false, operation: "teamDelete", note: "Irreversible; removes team access." },
+  "driversnote_team_invite": { tier: "admin", pendingAaron: false, operation: "teamInvite", note: "Access change; sends an invitation email." },
+  "driversnote_team_invite_delete": { tier: "admin", pendingAaron: false, operation: "teamInviteDelete", note: "Access change." },
+  "driversnote_team_invite_resend": { tier: "admin", pendingAaron: false, operation: "teamInviteResend", note: "Access change; sends an invitation email." },
+  "driversnote_team_member_bulk_upsert": { tier: "admin", pendingAaron: false, operation: "teamMemberBulkUpsert", note: "Access change." },
+  "driversnote_team_member_delete": { tier: "admin", pendingAaron: false, operation: "teamMemberDelete", note: "Access change." },
+  "driversnote_team_member_update_role": { tier: "admin", pendingAaron: false, operation: "teamMemberUpdateRole", note: "Access change." },
+  "driversnote_team_member_upsert": { tier: "admin", pendingAaron: false, operation: "teamMemberUpsert", note: "Access change." },
+  "driversnote_team_report_approve": { tier: "admin", pendingAaron: false, operation: "teamReportApprove", note: "approves reimbursement." },
+  "driversnote_team_report_bulk_approve": { tier: "admin", pendingAaron: false, operation: "teamReportBulkApprove", note: "approves reimbursement." },
+  "driversnote_team_report_bulk_process": { tier: "admin", pendingAaron: false, operation: "teamReportBulkProcess", note: "marks reimbursement processed/paid." },
+  "driversnote_team_report_bulk_reject": { tier: "admin", pendingAaron: false, operation: "teamReportBulkReject", note: "rejects reimbursement." },
+  "driversnote_team_report_process": { tier: "admin", pendingAaron: false, operation: "teamReportProcess", note: "marks reimbursement processed/paid." },
+  "driversnote_team_report_reject": { tier: "admin", pendingAaron: false, operation: "teamReportReject", note: "rejects reimbursement." },
+  "driversnote_team_report_submit": { tier: "admin", pendingAaron: false, operation: "teamReportSubmit", note: "submits a report to a manager for reimbursement (notifies reviewer)." },
+  "driversnote_team_report_withdraw": { tier: "admin", pendingAaron: false, operation: "teamReportWithdraw", note: "withdraws a reimbursement submission." },
+  "driversnote_team_update": { tier: "admin", pendingAaron: false, operation: "teamUpdate", note: "Team settings (access/account)." },
+  "driversnote_trip_bulk_delete": { tier: "admin", pendingAaron: false, operation: "tripBulkDelete", note: "bulk trip delete. Soft delete (tripBulkRestore exists)." },
+  "driversnote_trip_bulk_restore": { tier: "write", pendingAaron: false, operation: "tripBulkRestore", note: "" },
+  "driversnote_trip_bulk_update": { tier: "write", pendingAaron: false, operation: "tripBulkUpdate", note: "" },
+  "driversnote_trip_create": { tier: "write", pendingAaron: false, operation: "tripCreate", note: "" },
+  "driversnote_trip_delete": { tier: "admin", pendingAaron: false, operation: "tripDelete", note: "trip delete. Soft delete (tripRestore exists), but Aaron flagged trip deletion as an admin candidate." },
+  "driversnote_trip_restore": { tier: "write", pendingAaron: false, operation: "tripRestore", note: "" },
+  "driversnote_trip_update": { tier: "write", pendingAaron: false, operation: "tripUpdate", note: "" },
+  "driversnote_vehicle_archive": { tier: "write", pendingAaron: false, operation: "vehicleArchive", note: "Reversible via vehicleUnarchive." },
+  "driversnote_vehicle_create": { tier: "write", pendingAaron: false, operation: "vehicleCreate", note: "" },
+  "driversnote_vehicle_delete": { tier: "admin", pendingAaron: false, operation: "vehicleDelete", note: "Irreversible: no restore mutation." },
+  "driversnote_vehicle_unarchive": { tier: "write", pendingAaron: false, operation: "vehicleUnarchive", note: "" },
+  "driversnote_vehicle_update": { tier: "write", pendingAaron: false, operation: "vehicleUpdate", note: "" },
+};
+
+/** GraphQL operation name -> MCP tool name. */
+export const OPERATION_TO_TOOL: Record<string, string> = Object.fromEntries(
+  Object.entries(TOOL_TIERS).map(([tool, info]) => [info.operation, tool]),
+);
