@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { executeGraphQL, AUTH_ERROR_MESSAGE, runWithCredentials, getCredentials } from "../utils/client.js";
+import { executeGraphQL, AUTH_ERROR_MESSAGE, runWithCredentials, getCredentials, maxUpstreamBytes, readBoundedText } from "../utils/client.js";
 import { callTool } from "../domains/index.js";
 
 const KEY = "sekret-api-key-123";
@@ -15,6 +15,7 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
 beforeEach(() => {
   process.env = { ...ORIGINAL };
   delete process.env.DRIVERSNOTE_API_URL;
+  delete process.env.DRIVERSNOTE_MAX_UPSTREAM_BYTES;
   delete process.env.DRIVERSNOTE_TOOL_TIERS;
   delete process.env.AUTH_MODE;
   process.env.DRIVERSNOTE_API_KEY = KEY;
@@ -25,7 +26,78 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
+describe("upstream response limits", () => {
+  it.each([
+    [undefined, 16 * 1024 * 1024], ["invalid", 16 * 1024 * 1024],
+    ["0", 16 * 1024 * 1024], ["-1", 16 * 1024 * 1024],
+    [" 64 ", 64], ["999999999", 128 * 1024 * 1024],
+  ])("parses the configured limit %s", (raw, expected) => {
+    if (raw !== undefined) process.env.DRIVERSNOTE_MAX_UPSTREAM_BYTES = raw;
+    expect(maxUpstreamBytes()).toBe(expected);
+  });
+
+  it("rejects declared oversized bodies without pulling and cancels them", async () => {
+    process.env.DRIVERSNOTE_MAX_UPSTREAM_BYTES = "64";
+    const pull = vi.fn();
+    const cancel = vi.fn();
+    const stream = new ReadableStream<Uint8Array>({ pull, cancel }, { highWaterMark: 0 });
+    fetchMock(() => new Response(stream, { headers: { "content-length": "65" } }));
+    const r = await executeGraphQL("query { x }", {});
+    expect(r).toEqual({ ok: false, error: { kind: "http", message: expect.stringContaining("64 bytes; narrow the query") } });
+    expect(pull).not.toHaveBeenCalled();
+    expect(cancel).toHaveBeenCalledOnce();
+    expect(JSON.stringify(r)).not.toContain(KEY);
+  });
+
+  it("stops chunked bodies as soon as their byte count exceeds the limit", async () => {
+    process.env.DRIVERSNOTE_MAX_UPSTREAM_BYTES = "64";
+    let pulls = 0;
+    const cancel = vi.fn();
+    const stream = new ReadableStream<Uint8Array>({
+      pull(controller) {
+        pulls++;
+        controller.enqueue(new Uint8Array(32));
+        if (pulls === 100) controller.close();
+      },
+      cancel,
+    }, { highWaterMark: 0 });
+    fetchMock(() => new Response(stream));
+    const r = await executeGraphQL("query { x }", {});
+    expect(r).toEqual({ ok: false, error: { kind: "http", message: expect.stringContaining("64 bytes; narrow the query") } });
+    expect(pulls).toBe(3);
+    expect(cancel).toHaveBeenCalledOnce();
+  });
+
+  it("accepts a JSON response exactly at the byte limit", async () => {
+    const body = JSON.stringify({ data: { name: "é🚗" } });
+    process.env.DRIVERSNOTE_MAX_UPSTREAM_BYTES = String(Buffer.byteLength(body));
+    fetchMock(() => new Response(body));
+    expect(await executeGraphQL("query { x }", {})).toEqual({ ok: true, data: { name: "é🚗" } });
+  });
+
+  it("handles an empty response body", async () => {
+    expect(await readBoundedText(new Response(null), 64, "GraphQL")).toBe("");
+  });
+});
+
 describe("executeGraphQL", () => {
+  it("truncates each redacted GraphQL error and the joined message with a marker", async () => {
+    const message = KEY + "x".repeat(2000) + KEY;
+    fetchMock(() => json({ errors: [{ message }, { message }] }));
+    const r = await executeGraphQL("query { x }", {});
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.error.kind).toBe("graphql");
+      expect(r.error.messages).toHaveLength(2);
+      for (const text of [...r.error.messages!, r.error.message]) {
+        expect(text).toMatch(/\[truncated: \d+ more characters omitted\]$/);
+        expect(text.length).toBeLessThan(1600);
+      }
+      expect(r.error.messages![0]).toContain("[redacted]");
+      expect(JSON.stringify(r)).not.toContain(KEY);
+    }
+  });
+
   it("POSTs JSON with x-api-key (and no Authorization header) and returns data", async () => {
     const f = fetchMock(() => json({ data: { companyInfo: { name: "Driversnote" } } }));
     const r = await executeGraphQL("query { companyInfo { name } }", { a: 1 });

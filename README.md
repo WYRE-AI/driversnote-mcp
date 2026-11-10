@@ -23,6 +23,7 @@ Copy [`.env.example`](.env.example) and set the variables below. The stdio trans
 |----------|----------|-------------|
 | `DRIVERSNOTE_API_KEY` | For stdio and `AUTH_MODE=env` | Driversnote Public API key. Gateway mode reads `X-Driversnote-Api-Key` per request. |
 | `DRIVERSNOTE_API_URL` | No | API host. Defaults to `https://api.driversnote.com/v1/driversnote`. Not a credential. |
+| `DRIVERSNOTE_MAX_UPSTREAM_BYTES` | No | Maximum API response bytes buffered. Default 16777216 (16 MiB), ceiling 134217728 (128 MiB); invalid or non-positive values use the default. |
 | `DRIVERSNOTE_TOOL_TIERS` | No | Comma-separated `read`, `write`, or `admin`. Defaults to `read`. |
 | `AUTH_MODE` | No | `env` or `gateway`. Defaults to `env`. |
 | `CONDUIT_S2S_SECRET` | Yes for HTTP | Service-to-service secret, at least 32 characters after trimming. Required for HTTP unless `MCP_ALLOW_INSECURE_DEV=1`. |

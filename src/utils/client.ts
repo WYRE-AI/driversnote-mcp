@@ -17,6 +17,52 @@ export const API_KEY_HEADER = "x-api-key";
 export const GATEWAY_API_KEY_HEADER = "x-driversnote-api-key";
 
 const MAX_API_KEY_LENGTH = 512;
+const MAX_GRAPHQL_ERROR_CHARS = 1500;
+
+/** Maximum buffered Driversnote response size, in bytes. */
+export function maxUpstreamBytes(): number {
+  const n = Number.parseInt((process.env.DRIVERSNOTE_MAX_UPSTREAM_BYTES ?? "").trim(), 10);
+  if (!Number.isFinite(n) || n <= 0) return 16 * 1024 * 1024;
+  return Math.min(n, 128 * 1024 * 1024);
+}
+
+class UpstreamBodyTooLargeError extends Error {}
+
+/** Reject oversized responses before buffering, including bodies without Content-Length. */
+export async function readBoundedText(res: Response, maxBytes: number, where: string): Promise<string> {
+  const tooLarge = () => new UpstreamBodyTooLargeError(
+    `Driversnote API response for ${where} exceeded ${maxBytes} bytes; narrow the query with filters or pagination.`,
+  );
+  const declared = Number.parseInt(res.headers.get("content-length") ?? "", 10);
+  if (Number.isFinite(declared) && declared > maxBytes) {
+    await res.body?.cancel().catch(() => undefined);
+    throw tooLarge();
+  }
+  if (!res.body) return "";
+  const reader = res.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      size += value.byteLength;
+      if (size > maxBytes) {
+        await reader.cancel().catch(() => undefined);
+        throw tooLarge();
+      }
+      chunks.push(value);
+    }
+    return Buffer.concat(chunks).toString("utf8");
+  } finally {
+    reader.releaseLock();
+  }
+}
+
+function truncateError(text: string): string {
+  if (text.length <= MAX_GRAPHQL_ERROR_CHARS) return text;
+  return `${text.slice(0, MAX_GRAPHQL_ERROR_CHARS)}\n\n[truncated: ${text.length - MAX_GRAPHQL_ERROR_CHARS} more characters omitted]`;
+}
 
 // ──────────────────────────────────────────────────────────
 // Base URL allowlist
@@ -206,8 +252,11 @@ export async function executeGraphQL(
       signal: controller.signal,
       redirect: "error", // never forward the key to a redirect target
     });
-    bodyText = await response.text();
+    bodyText = await readBoundedText(response, maxUpstreamBytes(), "GraphQL");
   } catch (e) {
+    if (e instanceof UpstreamBodyTooLargeError) {
+      return { ok: false, error: { kind: "http", message: redact(e.message, apiKey) } };
+    }
     if (controller.signal.aborted) {
       return { ok: false, error: { kind: "timeout", message: `Driversnote API request timed out after ${Math.round(timeoutMs / 1000)}s.` } };
     }
@@ -244,11 +293,11 @@ export async function executeGraphQL(
 
   if (Array.isArray(body.errors) && body.errors.length > 0) {
     const messages = body.errors.map((err) =>
-      redact(isRecord(err) && typeof err.message === "string" ? err.message : "Unknown GraphQL error", apiKey),
+      truncateError(redact(isRecord(err) && typeof err.message === "string" ? err.message : "Unknown GraphQL error", apiKey)),
     );
     return {
       ok: false,
-      error: { kind: "graphql", message: `Driversnote GraphQL error: ${messages.join("; ")}`, messages },
+      error: { kind: "graphql", message: truncateError(`Driversnote GraphQL error: ${messages.join("; ")}`), messages },
     };
   }
 
