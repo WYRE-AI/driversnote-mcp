@@ -328,8 +328,17 @@ describe("HTTP hardening", () => {
     const warn = vi.spyOn(logger, "warn").mockImplementation(() => {});
     const port = await listen();
     warn.mockClear();
-    vi.spyOn(IncomingMessage.prototype, "iterator").mockImplementationOnce(async function* () {
-      throw new ErrorType("sensitive request content");
+    vi.spyOn(IncomingMessage.prototype, "iterator").mockImplementationOnce(() => {
+      const iterator = {
+        [Symbol.asyncIterator]() {
+          return iterator;
+        },
+        async next(): Promise<IteratorResult<Buffer>> {
+          throw new ErrorType("sensitive request content");
+        },
+        async [Symbol.asyncDispose]() {},
+      };
+      return iterator;
     });
     const response = await rpc(port, { "X-Gateway-S2S": mint(S2S_SECRET) });
     expect(response.status).toBe(400);
