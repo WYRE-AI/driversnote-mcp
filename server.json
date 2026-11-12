@@ -1,0 +1,46 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.WYRE-AI/driversnote-mcp",
+  "title": "Driversnote",
+  "description": "MCP server for the Driversnote Public API.",
+  "repository": {
+    "url": "https://github.com/WYRE-AI/driversnote-mcp",
+    "source": "github"
+  },
+  "version": "0.0.0",
+  "websiteUrl": "https://github.com/WYRE-AI/driversnote-mcp",
+  "packages": [
+    {
+      "registryType": "oci",
+      "identifier": "ghcr.io/wyre-ai/driversnote-mcp:0.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "DRIVERSNOTE_API_KEY",
+          "description": "Driversnote API key",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "MCP_TRANSPORT",
+          "description": "Must be stdio for this entry; the image defaults to http, which requires CONDUIT_S2S_SECRET",
+          "isRequired": true,
+          "default": "stdio",
+          "value": "stdio",
+          "format": "string"
+        },
+        {
+          "name": "AUTH_MODE",
+          "description": "Must be env for this entry; the image defaults to gateway, which ignores DRIVERSNOTE_API_KEY",
+          "isRequired": true,
+          "default": "env",
+          "value": "env",
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}

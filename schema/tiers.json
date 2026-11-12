@@ -1,0 +1,578 @@
+{
+ "companyInfo": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "contacts": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "contactsMostRecentlyUsed": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "countries": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "country": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "csvImportFile": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "locales": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "location": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "locations": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "odometerReading": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "odometerReadings": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "odometerUsages": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "organisation": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "organisations": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "previewReport": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "previousPeriodReports": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "rates": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "reimbursementMethods": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "report": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "reportPublic": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "reportingPeriodCalculation": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "reportingPeriodIntervals": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "reports": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "standardRates": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "storedAttachment": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "tagCategoriesDefault": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "team": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "teamReport": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "teamReportStates": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "teamReportTabCounts": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "teamReports": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "teams": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "timeZones": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "trips": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "unreportedTripsOverview": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "vehicle": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "vehicles": {
+  "kind": "query",
+  "tier": "read",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "contactCreate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "csvImportFileCreate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "csvImportFileImport": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": "Bulk-creates trips from an uploaded CSV."
+ },
+ "locationCreate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "locationDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Irreversible: no locationRestore mutation."
+ },
+ "locationImport": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": "Bulk-creates saved locations."
+ },
+ "locationUpdate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "odometerReadingCreate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "odometerReadingDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation; odometer readings feed report totals."
+ },
+ "odometerReadingUpdate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "organisationArchive": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Org archive is admin per the brief (reversible via organisationUnarchive)."
+ },
+ "organisationCreate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "organisationDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation."
+ },
+ "organisationUnarchive": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "organisationUpdate": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "can change the workplace reimbursement method, which drives reimbursement amounts."
+ },
+ "rateCreate": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "reimbursement rates (money)."
+ },
+ "rateDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "reimbursement rates (money); irreversible."
+ },
+ "rateUpdate": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "reimbursement rates (money)."
+ },
+ "reportCreate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "reportDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation; reimbursement document."
+ },
+ "reportReplace": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "reportUpdate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "reportingSettingUpdate": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "changes reporting periods used for reimbursement."
+ },
+ "tagCategoryCreate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "tagCategoryDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation."
+ },
+ "tagCategoryUpdate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "tagCreate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "tagDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation."
+ },
+ "tagUpdate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "teamCreate": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Account/access change: creates a team the caller administers."
+ },
+ "teamDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Irreversible; removes team access."
+ },
+ "teamInvite": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Access change; sends an invitation email."
+ },
+ "teamInviteDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Access change."
+ },
+ "teamInviteResend": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Access change; sends an invitation email."
+ },
+ "teamMemberBulkUpsert": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Access change."
+ },
+ "teamMemberDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Access change."
+ },
+ "teamMemberUpdateRole": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Access change."
+ },
+ "teamMemberUpsert": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Access change."
+ },
+ "teamReportApprove": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "approves reimbursement."
+ },
+ "teamReportBulkApprove": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "approves reimbursement."
+ },
+ "teamReportBulkProcess": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "marks reimbursement processed/paid."
+ },
+ "teamReportBulkReject": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "rejects reimbursement."
+ },
+ "teamReportProcess": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "marks reimbursement processed/paid."
+ },
+ "teamReportReject": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "rejects reimbursement."
+ },
+ "teamReportSubmit": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "submits a report to a manager for reimbursement (notifies reviewer)."
+ },
+ "teamReportWithdraw": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "withdraws a reimbursement submission."
+ },
+ "teamUpdate": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Team settings (access/account)."
+ },
+ "tripBulkDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "bulk trip delete. Soft delete (tripBulkRestore exists)."
+ },
+ "tripBulkRestore": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "tripBulkUpdate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "tripCreate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "tripDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "trip delete. Soft delete (tripRestore exists), but Aaron flagged trip deletion as an admin candidate."
+ },
+ "tripRestore": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "tripUpdate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "vehicleArchive": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": "Reversible via vehicleUnarchive."
+ },
+ "vehicleCreate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "vehicleDelete": {
+  "kind": "mutation",
+  "tier": "admin",
+  "pendingAaron": false,
+  "note": "Irreversible: no restore mutation."
+ },
+ "vehicleUnarchive": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ },
+ "vehicleUpdate": {
+  "kind": "mutation",
+  "tier": "write",
+  "pendingAaron": false,
+  "note": ""
+ }
+}

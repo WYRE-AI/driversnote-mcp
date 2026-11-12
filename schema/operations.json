@@ -1,0 +1,1424 @@
+{
+ "query.companyInfo": {
+  "description": "",
+  "returns": "CompanyInfo!",
+  "args": []
+ },
+ "query.contacts": {
+  "description": "Returns the Contacts for the User",
+  "returns": "ContactConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   }
+  ]
+ },
+ "query.contactsMostRecentlyUsed": {
+  "description": "Returns the most recently used Contacts for the User",
+  "returns": "ContactConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   }
+  ]
+ },
+ "query.countries": {
+  "description": "List of Countries",
+  "returns": "CountryConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   }
+  ]
+ },
+ "query.country": {
+  "description": "Returns a Country",
+  "returns": "Country!",
+  "args": [
+   {
+    "name": "id",
+    "type": "ID!",
+    "description": "Country code"
+   }
+  ]
+ },
+ "query.csvImportFile": {
+  "description": "Returns a CsvImportFile by a UUID",
+  "returns": "CsvImportFile!",
+  "args": [
+   {
+    "name": "id",
+    "type": "ID!",
+    "description": "UUID"
+   }
+  ]
+ },
+ "query.locales": {
+  "description": "List of locales",
+  "returns": "[Enumerize!]!",
+  "args": []
+ },
+ "query.location": {
+  "description": "Returns a Location by a UUID",
+  "returns": "Location!",
+  "args": [
+   {
+    "name": "id",
+    "type": "ID!",
+    "description": "UUID"
+   }
+  ]
+ },
+ "query.locations": {
+  "description": "Returns the Locations for the User",
+  "returns": "LocationConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   },
+   {
+    "name": "parentTeamId",
+    "type": "ID",
+    "description": "Filter locations by parent team"
+   },
+   {
+    "name": "searchPhrase",
+    "type": "String",
+    "description": "Will search for locations which contains the search phrase"
+   }
+  ]
+ },
+ "query.odometerReading": {
+  "description": "Returns the Odometer Reading for the ID",
+  "returns": "OdometerReading!",
+  "args": [
+   {
+    "name": "id",
+    "type": "ID!",
+    "description": "UUID"
+   }
+  ]
+ },
+ "query.odometerReadings": {
+  "description": "Returns the Odometer Readings for the Vehicle",
+  "returns": "OdometerReadingConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   },
+   {
+    "name": "vehicleId",
+    "type": "ID",
+    "description": "Vehicle ID"
+   }
+  ]
+ },
+ "query.odometerUsages": {
+  "description": "Returns options for Odometer Usage on a Vehicle",
+  "returns": "[Enumerize!]!",
+  "args": []
+ },
+ "query.organisation": {
+  "description": "Returns an Organisation by a UUID",
+  "returns": "Organisation!",
+  "args": [
+   {
+    "name": "id",
+    "type": "ID!",
+    "description": "UUID"
+   }
+  ]
+ },
+ "query.organisations": {
+  "description": "Returns the Organisations for the User",
+  "returns": "OrganisationConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "excludeTeamOrganisationsIfAdmin",
+    "type": "Boolean",
+    "description": "Filter team organisations if the user is admin."
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "hasReimbursementMethod",
+    "type": "Boolean",
+    "description": "Will filter organisations by reimbursement method presence."
+   },
+   {
+    "name": "includeParentTeamOrganisations",
+    "type": "Boolean",
+    "description": "Include organisations without role but through a parent team."
+   },
+   {
+    "name": "isArchived",
+    "type": "Boolean",
+    "description": "Filter organisations whether they are archived or not."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   },
+   {
+    "name": "roleType",
+    "type": "String",
+    "description": "Will filter organisations by the users role."
+   }
+  ]
+ },
+ "query.previewReport": {
+  "description": "Returns a preview of a Report by given parameters",
+  "returns": "ReportPreview!",
+  "args": [
+   {
+    "name": "endDate",
+    "type": "ISO8601Date!",
+    "description": "Maximum date for Trips"
+   },
+   {
+    "name": "organisationId",
+    "type": "ID!",
+    "description": "Organisation ID"
+   },
+   {
+    "name": "showOdometer",
+    "type": "Boolean!",
+    "description": "Show Odometer readings"
+   },
+   {
+    "name": "startDate",
+    "type": "ISO8601Date!",
+    "description": "Minimum date for Trips"
+   },
+   {
+    "name": "tagIds",
+    "type": "[ID!]",
+    "description": "Tags to filter by.If specified, a trip must be tagged with at least one of the tags to be included in the report.If not specified, all trips are included."
+   },
+   {
+    "name": "tripTypeId",
+    "type": "String",
+    "description": "TripType ID"
+   },
+   {
+    "name": "vehicleId",
+    "type": "ID!",
+    "description": "Vehicle ID"
+   }
+  ]
+ },
+ "query.previousPeriodReports": {
+  "description": "Returns each organisation's previous reporting period and the report created for it",
+  "returns": "[PreviousPeriodReports!]!",
+  "args": []
+ },
+ "query.rates": {
+  "description": "Returns matching Rates",
+  "returns": "RateConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "date",
+    "type": "ISO8601Date",
+    "description": "Date for matching rates"
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   },
+   {
+    "name": "organisationId",
+    "type": "ID!",
+    "description": "Organisation ID"
+   },
+   {
+    "name": "tripTypeId",
+    "type": "String",
+    "description": "TripType ID"
+   },
+   {
+    "name": "vehicleId",
+    "type": "ID!",
+    "description": "VehicleType ID"
+   }
+  ]
+ },
+ "query.reimbursementMethods": {
+  "description": "Returns options for ReimbursementMethods for an Organisation",
+  "returns": "[ReimbursementMethod!]!",
+  "args": []
+ },
+ "query.report": {
+  "description": "Returns a Report by a UUID",
+  "returns": "Report!",
+  "args": [
+   {
+    "name": "id",
+    "type": "ID!",
+    "description": "UUID"
+   }
+  ]
+ },
+ "query.reportPublic": {
+  "description": "Returns a Report and an optionally related Report Share by a given Token UUID",
+  "returns": "ReportPublic",
+  "args": [
+   {
+    "name": "tokenId",
+    "type": "ID!",
+    "description": "Token UUID"
+   }
+  ]
+ },
+ "query.reportingPeriodCalculation": {
+  "description": "Calculates Reporting Periods",
+  "returns": "ReportingPeriodCalculation!",
+  "args": [
+   {
+    "name": "interval",
+    "type": "String!",
+    "description": "Interval of the Reporting Period"
+   },
+   {
+    "name": "startOn",
+    "type": "ISO8601Date!",
+    "description": "From which day should the Reporting Period begin"
+   }
+  ]
+ },
+ "query.reportingPeriodIntervals": {
+  "description": "Returns options for Reporting Period intervals on an Organisation",
+  "returns": "[Enumerize!]!",
+  "args": []
+ },
+ "query.reports": {
+  "description": "Returns a list of the the current Users Reports",
+  "returns": "ReportConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   }
+  ]
+ },
+ "query.standardRates": {
+  "description": "Returns matching Standard Rates",
+  "returns": "RateConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "countryId",
+    "type": "ID!",
+    "description": "Country ID"
+   },
+   {
+    "name": "date",
+    "type": "ISO8601Date",
+    "description": "Date for matching rates"
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   },
+   {
+    "name": "sortBy",
+    "type": "[QueryStandardRatesSortBy!]",
+    "description": "Fields to sort the result by"
+   },
+   {
+    "name": "vehicleTypeId",
+    "type": "ID!",
+    "description": "VehicleType ID"
+   }
+  ]
+ },
+ "query.storedAttachment": {
+  "description": "Returns details about a stored file",
+  "returns": "StoredAttachment!",
+  "args": [
+   {
+    "name": "attachmentName",
+    "type": "StoredAttachmentName!",
+    "description": "Attachment on the model, ie. pdf_file"
+   },
+   {
+    "name": "scopeId",
+    "type": "ID!",
+    "description": "UUID of the given scope, or access token for ReportShare"
+   },
+   {
+    "name": "scopeName",
+    "type": "StoredAttachmentModel!",
+    "description": "Relevant scope, ie. Report, TeamReport or ReportShare"
+   }
+  ]
+ },
+ "query.tagCategoriesDefault": {
+  "description": "Get default tag categories",
+  "returns": "TagCategoryConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   }
+  ]
+ },
+ "query.team": {
+  "description": "Returns a Team",
+  "returns": "Team",
+  "args": [
+   {
+    "name": "id",
+    "type": "ID",
+    "description": "Team ID (defaults to first team)"
+   }
+  ]
+ },
+ "query.teamReport": {
+  "description": "Returns a Team Report by a UUID",
+  "returns": "TeamReport!",
+  "args": [
+   {
+    "name": "id",
+    "type": "ID!",
+    "description": "UUID"
+   }
+  ]
+ },
+ "query.teamReportStates": {
+  "description": "Returns a list of states for Team Reports",
+  "returns": "[TeamReportState!]!",
+  "args": []
+ },
+ "query.teamReportTabCounts": {
+  "description": "Returns the number of Team Reports per state for the tab count badges",
+  "returns": "[TeamReportTabCount!]!",
+  "args": [
+   {
+    "name": "endDate",
+    "type": "ISO8601Date",
+    "description": ""
+   },
+   {
+    "name": "includeNotSubmittedCounts",
+    "type": "Boolean",
+    "description": "Default = true"
+   },
+   {
+    "name": "reviewerId",
+    "type": "ID",
+    "description": ""
+   },
+   {
+    "name": "startDate",
+    "type": "ISO8601Date",
+    "description": ""
+   },
+   {
+    "name": "teamId",
+    "type": "ID",
+    "description": ""
+   },
+   {
+    "name": "teamMemberId",
+    "type": "ID",
+    "description": ""
+   }
+  ]
+ },
+ "query.teamReports": {
+  "description": "Returns a list of Teams current Team Reports",
+  "returns": "TeamReportConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "endDate",
+    "type": "ISO8601Date",
+    "description": "Filter by Report end date"
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   },
+   {
+    "name": "reviewerId",
+    "type": "ID",
+    "description": "Filter by Reviewer Team Member ID"
+   },
+   {
+    "name": "startDate",
+    "type": "ISO8601Date",
+    "description": "Filter by Report start date"
+   },
+   {
+    "name": "state",
+    "type": "String",
+    "description": "Filter by Team Report state"
+   },
+   {
+    "name": "teamId",
+    "type": "ID",
+    "description": "Team ID (defaults to first team)"
+   },
+   {
+    "name": "teamMemberId",
+    "type": "ID",
+    "description": "Filter by Team Member ID"
+   }
+  ]
+ },
+ "query.teams": {
+  "description": "Returns a list of the the current Users Teams",
+  "returns": "TeamConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   }
+  ]
+ },
+ "query.timeZones": {
+  "description": "List of time zones",
+  "returns": "[Enumerize!]!",
+  "args": []
+ },
+ "query.trips": {
+  "description": "Returns the Trips for the User",
+  "returns": "TripConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "endDate",
+    "type": "ISO8601Date!",
+    "description": "Maximum date for Trips"
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   },
+   {
+    "name": "organisationId",
+    "type": "ID",
+    "description": "Organisation ID"
+   },
+   {
+    "name": "startDate",
+    "type": "ISO8601Date!",
+    "description": "Minimum date for Trips"
+   },
+   {
+    "name": "tripTypeId",
+    "type": "ID",
+    "description": "Trip Type ID"
+   },
+   {
+    "name": "vehicleId",
+    "type": "ID",
+    "description": "Vehicle ID"
+   }
+  ]
+ },
+ "query.unreportedTripsOverview": {
+  "description": "Returns an overview of unreported trips for the user",
+  "returns": "UnreportedTripsOverview",
+  "args": []
+ },
+ "query.vehicle": {
+  "description": "Returns the Vehicle",
+  "returns": "Vehicle!",
+  "args": [
+   {
+    "name": "id",
+    "type": "ID",
+    "description": "Vehicle ID"
+   }
+  ]
+ },
+ "query.vehicles": {
+  "description": "Returns the Vehicles for the User",
+  "returns": "VehicleConnection!",
+  "args": [
+   {
+    "name": "after",
+    "type": "String",
+    "description": "Returns the elements in the list that come after the specified cursor."
+   },
+   {
+    "name": "before",
+    "type": "String",
+    "description": "Returns the elements in the list that come before the specified cursor."
+   },
+   {
+    "name": "first",
+    "type": "Int",
+    "description": "Returns the first n elements from the list."
+   },
+   {
+    "name": "isArchived",
+    "type": "Boolean",
+    "description": "Filter vehicles whether they are archived or not."
+   },
+   {
+    "name": "last",
+    "type": "Int",
+    "description": "Returns the last n elements from the list."
+   }
+  ]
+ },
+ "mutation.contactCreate": {
+  "description": "",
+  "returns": "ContactCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "ContactCreateMutationInput!",
+    "description": "Parameters for ContactCreateMutation"
+   }
+  ]
+ },
+ "mutation.csvImportFileCreate": {
+  "description": "",
+  "returns": "CsvImportFileCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "CsvImportFileCreateMutationInput!",
+    "description": "Parameters for CsvImportFileCreateMutation"
+   }
+  ]
+ },
+ "mutation.csvImportFileImport": {
+  "description": "",
+  "returns": "CsvImportFileImportMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "CsvImportFileImportMutationInput!",
+    "description": "Parameters for CsvImportFileImportMutation"
+   }
+  ]
+ },
+ "mutation.locationCreate": {
+  "description": "",
+  "returns": "LocationCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "LocationCreateMutationInput!",
+    "description": "Parameters for LocationCreateMutation"
+   }
+  ]
+ },
+ "mutation.locationDelete": {
+  "description": "",
+  "returns": "LocationDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "LocationDeleteMutationInput!",
+    "description": "Parameters for LocationDeleteMutation"
+   }
+  ]
+ },
+ "mutation.locationImport": {
+  "description": "",
+  "returns": "LocationImportMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "LocationImportMutationInput!",
+    "description": "Parameters for LocationImportMutation"
+   }
+  ]
+ },
+ "mutation.locationUpdate": {
+  "description": "",
+  "returns": "LocationUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "LocationUpdateMutationInput!",
+    "description": "Parameters for LocationUpdateMutation"
+   }
+  ]
+ },
+ "mutation.odometerReadingCreate": {
+  "description": "",
+  "returns": "OdometerReadingCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "OdometerReadingCreateMutationInput!",
+    "description": "Parameters for OdometerReadingCreateMutation"
+   }
+  ]
+ },
+ "mutation.odometerReadingDelete": {
+  "description": "",
+  "returns": "OdometerReadingDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "OdometerReadingDeleteMutationInput!",
+    "description": "Parameters for OdometerReadingDeleteMutation"
+   }
+  ]
+ },
+ "mutation.odometerReadingUpdate": {
+  "description": "",
+  "returns": "OdometerReadingUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "OdometerReadingUpdateMutationInput!",
+    "description": "Parameters for OdometerReadingUpdateMutation"
+   }
+  ]
+ },
+ "mutation.organisationArchive": {
+  "description": "",
+  "returns": "OrganisationArchiveMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "OrganisationArchiveMutationInput!",
+    "description": "Parameters for OrganisationArchiveMutation"
+   }
+  ]
+ },
+ "mutation.organisationCreate": {
+  "description": "",
+  "returns": "OrganisationCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "OrganisationCreateMutationInput!",
+    "description": "Parameters for OrganisationCreateMutation"
+   }
+  ]
+ },
+ "mutation.organisationDelete": {
+  "description": "",
+  "returns": "OrganisationDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "OrganisationDeleteMutationInput!",
+    "description": "Parameters for OrganisationDeleteMutation"
+   }
+  ]
+ },
+ "mutation.organisationUnarchive": {
+  "description": "",
+  "returns": "OrganisationUnarchiveMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "OrganisationUnarchiveMutationInput!",
+    "description": "Parameters for OrganisationUnarchiveMutation"
+   }
+  ]
+ },
+ "mutation.organisationUpdate": {
+  "description": "",
+  "returns": "OrganisationUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "OrganisationUpdateMutationInput!",
+    "description": "Parameters for OrganisationUpdateMutation"
+   }
+  ]
+ },
+ "mutation.rateCreate": {
+  "description": "",
+  "returns": "RateCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "RateCreateMutationInput!",
+    "description": "Parameters for RateCreateMutation"
+   }
+  ]
+ },
+ "mutation.rateDelete": {
+  "description": "",
+  "returns": "RateDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "RateDeleteMutationInput!",
+    "description": "Parameters for RateDeleteMutation"
+   }
+  ]
+ },
+ "mutation.rateUpdate": {
+  "description": "",
+  "returns": "RateUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "RateUpdateMutationInput!",
+    "description": "Parameters for RateUpdateMutation"
+   }
+  ]
+ },
+ "mutation.reportCreate": {
+  "description": "",
+  "returns": "ReportCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "ReportCreateMutationInput!",
+    "description": "Parameters for ReportCreateMutation"
+   }
+  ]
+ },
+ "mutation.reportDelete": {
+  "description": "",
+  "returns": "ReportDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "ReportDeleteMutationInput!",
+    "description": "Parameters for ReportDeleteMutation"
+   }
+  ]
+ },
+ "mutation.reportReplace": {
+  "description": "",
+  "returns": "ReportReplaceMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "ReportReplaceMutationInput!",
+    "description": "Parameters for ReportReplaceMutation"
+   }
+  ]
+ },
+ "mutation.reportUpdate": {
+  "description": "",
+  "returns": "ReportUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "ReportUpdateMutationInput!",
+    "description": "Parameters for ReportUpdateMutation"
+   }
+  ]
+ },
+ "mutation.reportingSettingUpdate": {
+  "description": "",
+  "returns": "ReportingSettingUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "ReportingSettingUpdateMutationInput!",
+    "description": "Parameters for ReportingSettingUpdateMutation"
+   }
+  ]
+ },
+ "mutation.tagCategoryCreate": {
+  "description": "",
+  "returns": "TagCategoryCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TagCategoryCreateMutationInput!",
+    "description": "Parameters for TagCategoryCreateMutation"
+   }
+  ]
+ },
+ "mutation.tagCategoryDelete": {
+  "description": "",
+  "returns": "TagCategoryDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TagCategoryDeleteMutationInput!",
+    "description": "Parameters for TagCategoryDeleteMutation"
+   }
+  ]
+ },
+ "mutation.tagCategoryUpdate": {
+  "description": "",
+  "returns": "TagCategoryUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TagCategoryUpdateMutationInput!",
+    "description": "Parameters for TagCategoryUpdateMutation"
+   }
+  ]
+ },
+ "mutation.tagCreate": {
+  "description": "",
+  "returns": "TagCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TagCreateMutationInput!",
+    "description": "Parameters for TagCreateMutation"
+   }
+  ]
+ },
+ "mutation.tagDelete": {
+  "description": "",
+  "returns": "TagDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TagDeleteMutationInput!",
+    "description": "Parameters for TagDeleteMutation"
+   }
+  ]
+ },
+ "mutation.tagUpdate": {
+  "description": "",
+  "returns": "TagUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TagUpdateMutationInput!",
+    "description": "Parameters for TagUpdateMutation"
+   }
+  ]
+ },
+ "mutation.teamCreate": {
+  "description": "",
+  "returns": "TeamCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamCreateMutationInput!",
+    "description": "Parameters for TeamCreateMutation"
+   }
+  ]
+ },
+ "mutation.teamDelete": {
+  "description": "",
+  "returns": "TeamDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamDeleteMutationInput!",
+    "description": "Parameters for TeamDeleteMutation"
+   }
+  ]
+ },
+ "mutation.teamInvite": {
+  "description": "",
+  "returns": "TeamInviteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamInviteMutationInput!",
+    "description": "Parameters for TeamInviteMutation"
+   }
+  ]
+ },
+ "mutation.teamInviteDelete": {
+  "description": "",
+  "returns": "TeamInviteDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamInviteDeleteMutationInput!",
+    "description": "Parameters for TeamInviteDeleteMutation"
+   }
+  ]
+ },
+ "mutation.teamInviteResend": {
+  "description": "",
+  "returns": "TeamInviteResendMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamInviteResendMutationInput!",
+    "description": "Parameters for TeamInviteResendMutation"
+   }
+  ]
+ },
+ "mutation.teamMemberBulkUpsert": {
+  "description": "",
+  "returns": "TeamMemberBulkUpsertMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamMemberBulkUpsertMutationInput!",
+    "description": "Parameters for TeamMemberBulkUpsertMutation"
+   }
+  ]
+ },
+ "mutation.teamMemberDelete": {
+  "description": "",
+  "returns": "TeamMemberDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamMemberDeleteMutationInput!",
+    "description": "Parameters for TeamMemberDeleteMutation"
+   }
+  ]
+ },
+ "mutation.teamMemberUpdateRole": {
+  "description": "",
+  "returns": "TeamMemberUpdateRoleMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamMemberUpdateRoleMutationInput!",
+    "description": "Parameters for TeamMemberUpdateRoleMutation"
+   }
+  ]
+ },
+ "mutation.teamMemberUpsert": {
+  "description": "",
+  "returns": "TeamMemberUpsertMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamMemberUpsertMutationInput!",
+    "description": "Parameters for TeamMemberUpsertMutation"
+   }
+  ]
+ },
+ "mutation.teamReportApprove": {
+  "description": "",
+  "returns": "TeamReportApproveMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamReportApproveMutationInput!",
+    "description": "Parameters for TeamReportApproveMutation"
+   }
+  ]
+ },
+ "mutation.teamReportBulkApprove": {
+  "description": "",
+  "returns": "TeamReportBulkApproveMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamReportBulkApproveMutationInput!",
+    "description": "Parameters for TeamReportBulkApproveMutation"
+   }
+  ]
+ },
+ "mutation.teamReportBulkProcess": {
+  "description": "",
+  "returns": "TeamReportBulkProcessMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamReportBulkProcessMutationInput!",
+    "description": "Parameters for TeamReportBulkProcessMutation"
+   }
+  ]
+ },
+ "mutation.teamReportBulkReject": {
+  "description": "",
+  "returns": "TeamReportBulkRejectMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamReportBulkRejectMutationInput!",
+    "description": "Parameters for TeamReportBulkRejectMutation"
+   }
+  ]
+ },
+ "mutation.teamReportProcess": {
+  "description": "",
+  "returns": "TeamReportProcessMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamReportProcessMutationInput!",
+    "description": "Parameters for TeamReportProcessMutation"
+   }
+  ]
+ },
+ "mutation.teamReportReject": {
+  "description": "",
+  "returns": "TeamReportRejectMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamReportRejectMutationInput!",
+    "description": "Parameters for TeamReportRejectMutation"
+   }
+  ]
+ },
+ "mutation.teamReportSubmit": {
+  "description": "",
+  "returns": "TeamReportSubmitMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamReportSubmitMutationInput!",
+    "description": "Parameters for TeamReportSubmitMutation"
+   }
+  ]
+ },
+ "mutation.teamReportWithdraw": {
+  "description": "",
+  "returns": "TeamReportWithdrawMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamReportWithdrawMutationInput!",
+    "description": "Parameters for TeamReportWithdrawMutation"
+   }
+  ]
+ },
+ "mutation.teamUpdate": {
+  "description": "",
+  "returns": "TeamUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TeamUpdateMutationInput!",
+    "description": "Parameters for TeamUpdateMutation"
+   }
+  ]
+ },
+ "mutation.tripBulkDelete": {
+  "description": "",
+  "returns": "TripBulkDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TripBulkDeleteMutationInput!",
+    "description": "Parameters for TripBulkDeleteMutation"
+   }
+  ]
+ },
+ "mutation.tripBulkRestore": {
+  "description": "",
+  "returns": "TripBulkRestoreMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TripBulkRestoreMutationInput!",
+    "description": "Parameters for TripBulkRestoreMutation"
+   }
+  ]
+ },
+ "mutation.tripBulkUpdate": {
+  "description": "",
+  "returns": "TripBulkUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TripBulkUpdateMutationInput!",
+    "description": "Parameters for TripBulkUpdateMutation"
+   }
+  ]
+ },
+ "mutation.tripCreate": {
+  "description": "",
+  "returns": "TripCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TripCreateMutationInput!",
+    "description": "Parameters for TripCreateMutation"
+   }
+  ]
+ },
+ "mutation.tripDelete": {
+  "description": "",
+  "returns": "TripDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TripDeleteMutationInput!",
+    "description": "Parameters for TripDeleteMutation"
+   }
+  ]
+ },
+ "mutation.tripRestore": {
+  "description": "",
+  "returns": "TripRestoreMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TripRestoreMutationInput!",
+    "description": "Parameters for TripRestoreMutation"
+   }
+  ]
+ },
+ "mutation.tripUpdate": {
+  "description": "",
+  "returns": "TripUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "TripUpdateMutationInput!",
+    "description": "Parameters for TripUpdateMutation"
+   }
+  ]
+ },
+ "mutation.vehicleArchive": {
+  "description": "",
+  "returns": "VehicleArchiveMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "VehicleArchiveMutationInput!",
+    "description": "Parameters for VehicleArchiveMutation"
+   }
+  ]
+ },
+ "mutation.vehicleCreate": {
+  "description": "",
+  "returns": "VehicleCreateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "VehicleCreateMutationInput!",
+    "description": "Parameters for VehicleCreateMutation"
+   }
+  ]
+ },
+ "mutation.vehicleDelete": {
+  "description": "",
+  "returns": "VehicleDeleteMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "VehicleDeleteMutationInput!",
+    "description": "Parameters for VehicleDeleteMutation"
+   }
+  ]
+ },
+ "mutation.vehicleUnarchive": {
+  "description": "",
+  "returns": "VehicleUnarchiveMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "VehicleUnarchiveMutationInput!",
+    "description": "Parameters for VehicleUnarchiveMutation"
+   }
+  ]
+ },
+ "mutation.vehicleUpdate": {
+  "description": "",
+  "returns": "VehicleUpdateMutationPayload",
+  "args": [
+   {
+    "name": "input",
+    "type": "VehicleUpdateMutationInput!",
+    "description": "Parameters for VehicleUpdateMutation"
+   }
+  ]
+ }
+}
