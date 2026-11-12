@@ -3,7 +3,7 @@
  * end-to-end tool call against a local mock of the Driversnote API.
  */
 import { createHmac } from "node:crypto";
-import { createServer, request, type Server } from "node:http";
+import { createServer, IncomingMessage, request, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { logger } from "../utils/logger.js";
@@ -308,6 +308,34 @@ describe("HTTP hardening", () => {
       expect(response.status).toBe(200);
     }
     expect(upstreamKeys).toEqual(["gateway-key", "gateway-key"]);
+  });
+
+  it("returns a JSON error only for malformed JSON", async () => {
+    const warn = vi.spyOn(logger, "warn").mockImplementation(() => {});
+    const port = await listen();
+    warn.mockClear();
+    const response = await fetch(`http://127.0.0.1:${port}/mcp`, {
+      method: "POST",
+      headers: { "X-Gateway-S2S": mint(S2S_SECRET) },
+      body: "{",
+    });
+    expect(response.status).toBe(400);
+    expect(await response.json()).toEqual({ error: "Invalid JSON request body" });
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it.each([Error, SyntaxError])("logs stream failures without exposing their contents (%s)", async (ErrorType) => {
+    const warn = vi.spyOn(logger, "warn").mockImplementation(() => {});
+    const port = await listen();
+    warn.mockClear();
+    vi.spyOn(IncomingMessage.prototype, "iterator").mockImplementationOnce(async function* () {
+      throw new ErrorType("sensitive request content");
+    });
+    const response = await rpc(port, { "X-Gateway-S2S": mint(S2S_SECRET) });
+    expect(response.status).toBe(400);
+    expect(await response.json()).toEqual({ error: "Failed to read request body" });
+    expect(warn).toHaveBeenCalledExactlyOnceWith("Failed to read HTTP request body");
+    expect(upstreamKeys).toHaveLength(0);
   });
 
   it("accepts a small chunked JSON body", async () => {

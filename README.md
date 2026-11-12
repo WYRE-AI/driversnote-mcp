@@ -12,12 +12,23 @@ This is a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) serve
 ## Installation
 
 ```bash
-npm install @wyre-ai/driversnote-mcp
+git clone https://github.com/WYRE-AI/driversnote-mcp.git
+cd driversnote-mcp
+npm ci
+npm run build
 ```
 
 ## Configuration
 
-Copy [`.env.example`](.env.example) and set the variables below. The stdio transport reads `DRIVERSNOTE_API_KEY` from the environment and does not use HTTP service-to-service auth.
+Use [`.env.example`](.env.example) as a reference for the variables below. `npm start` does not load `.env` automatically. For stdio, export required variables, including `DRIVERSNOTE_API_KEY`, in the shell before starting the server:
+
+```bash
+export DRIVERSNOTE_API_KEY="your-driversnote-api-key"
+npm start
+# Alternatively: node dist/index.js
+```
+
+The stdio transport reads `DRIVERSNOTE_API_KEY` from the environment and does not use HTTP service-to-service auth.
 
 | Variable | Required | Description |
 |----------|----------|-------------|
@@ -48,14 +59,14 @@ In `AUTH_MODE=gateway`, `/mcp` also requires `X-Driversnote-Api-Key`. A missing 
 
 ### Running with Claude Desktop
 
-Add to your Claude Desktop `claude_desktop_config.json`:
+After building locally, add to your Claude Desktop `claude_desktop_config.json`, replacing `/absolute/path/to/driversnote-mcp` with your clone location:
 
 ```json
 {
   "mcpServers": {
     "driversnote-mcp": {
-      "command": "npx",
-      "args": ["@wyre-ai/driversnote-mcp"],
+      "command": "node",
+      "args": ["/absolute/path/to/driversnote-mcp/dist/index.js"],
       "env": {
         "DRIVERSNOTE_API_KEY": "your-driversnote-api-key"
       }
@@ -66,10 +77,12 @@ Add to your Claude Desktop `claude_desktop_config.json`:
 
 ### Running with Claude Code (CLI)
 
+After building locally, replace the path below with your clone location:
+
 ```bash
 claude mcp add driversnote-mcp \
   -e DRIVERSNOTE_API_KEY=your-value \
-  -- npx -y @wyre-ai/driversnote-mcp
+  -- node /absolute/path/to/driversnote-mcp/dist/index.js
 ```
 
 ### Docker

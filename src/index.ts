@@ -191,8 +191,8 @@ async function handleMcpRequest(
       tooLarge();
       return;
     }
+    const chunks: Buffer[] = [];
     try {
-      const chunks: Buffer[] = [];
       let size = 0;
       // Early return must not destroy the socket before the 413 is flushed.
       for await (const chunk of req.iterator({ destroyOnReturn: false })) {
@@ -204,8 +204,18 @@ async function handleMcpRequest(
         }
         chunks.push(buffer);
       }
-      parsedBody = JSON.parse(Buffer.concat(chunks).toString("utf8"));
     } catch {
+      logger.warn("Failed to read HTTP request body");
+      if (!res.headersSent) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Failed to read request body" }));
+      }
+      return;
+    }
+    try {
+      parsedBody = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+    } catch (error) {
+      if (!(error instanceof SyntaxError)) throw error;
       if (!res.headersSent) {
         res.writeHead(400, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Invalid JSON request body" }));
